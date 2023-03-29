@@ -55,7 +55,7 @@ export function RightSideBar() {
                         src={candy}
                         alt="profile picture"
                     />
-                    <button className="btn btn-sm btn-outline-primary">Nous contacter</button>
+                    <button className="submit-btn btn btn-sm text-white">Nous contacter</button>
 
 
                 </div>
