@@ -1,0 +1,42 @@
+.text-input {
+
+  width: 100%;
+  border: none;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $clr-white;
+  color: $clr-black;
+  transition: background-color ease-in-out 250ms;
+  border-radius: 1rem;
+  min-height: 3rem;
+  resize: none;
+
+  &:focus, &:hover {
+    outline: none;
+    background-color: rgba($clr-grey, 0.15);
+  }
+
+}
+
+.hide-show {
+
+  max-height: 0rem;
+  opacity: 0;
+  overflow-y: hidden;
+  transition: max-height ease-out 350ms, opacity ease-out 350ms;
+}
+
+.btn {
+  border-radius: 0.5rem;
+}
+
+
+.about {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.black {
+  /* Font weight not bold */
+  font-weight: normal !important;
+}
