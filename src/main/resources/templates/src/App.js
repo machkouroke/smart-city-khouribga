@@ -1,9 +1,9 @@
 import './App.css';
 import React from "react";
-import {Main} from "./components/Main";
+import {Main} from "./pages/Main";
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {EditProfile} from "./components/EditProfile";
+import {EditProfile} from "./pages/EditProfile";
 
 function App() {
     return (

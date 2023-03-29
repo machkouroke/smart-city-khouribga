@@ -1,9 +1,9 @@
 import '../style/scss/styles.scss';
-import {LeftSidebar} from "./LeftSidebar";
-import {CreatePost} from "./CreatePost";
-import {UserPost} from "./UserPost";
-import {RightSideBar} from "./RightSideBar";
-import {NavBar} from "./NavBar";
+import {LeftSidebar} from "../components/LeftSidebar";
+import {CreatePost} from "../components/CreatePost";
+import {UserPost} from "../components/UserPost";
+import {RightSideBar} from "../components/RightSideBar";
+import {NavBar} from "../components/NavBar";
 import React from "react";
 
 export function Main(props) {
