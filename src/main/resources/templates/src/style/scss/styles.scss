@@ -1,9 +1,4 @@
-$clr-accent: #0075ff;
-$clr-white: #ffffff;
-$clr-text: #51515c;
-$clr-black: #000000;
-$clr-light-accent: #f7f7f9;
-$clr-grey: #8a8a94;
+
 
 // $clr-accent: #0075ff;
 // $clr-white: #131314;
@@ -11,9 +6,8 @@ $clr-grey: #8a8a94;
 // $clr-black: #ffffff;
 // $clr-light-accent: darken(#fafafb,85%);
 // $clr-grey: #8a8a94;
-
+@import "./utils/variables";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto&display=swap');
-@import url("https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css");
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
 @import "custom";
 

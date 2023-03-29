@@ -1,3 +1,5 @@
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css");
+
 .text-input {
 
   width: 100%;
@@ -16,11 +18,32 @@
     background-color: rgba($clr-grey, 0.15);
   }
 
+
+}
+
+.file-input {
+  @extend .text-input;
+
+  ::file-selector-button {
+    background-color: $clr-accent;
+    color: $clr-white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    transition: background-color ease-in-out 250ms;
+
+    &:hover, &:focus {
+      outline: none;
+      background-color: rgba($clr-grey, 0.15);
+    }
+  }
+
 }
 
 .hide-show {
 
-  max-height: 0rem;
+  max-height: 0;
   opacity: 0;
   overflow-y: hidden;
   transition: max-height ease-out 350ms, opacity ease-out 350ms;
@@ -28,6 +51,9 @@
 
 .btn {
   border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  background-color: $clr-accent;
+  border-color: $clr-accent;
 }
 
 
