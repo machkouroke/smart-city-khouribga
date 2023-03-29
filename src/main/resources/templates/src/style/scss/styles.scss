@@ -523,7 +523,6 @@ button:focus, input:focus {
         opacity: 1;
         max-height: 3.5rem;
 
-        //TODO: Button only get visible when something is in textfield
       }
     }
   }
@@ -665,7 +664,6 @@ button:focus, input:focus {
           padding: 0 0.75rem;
 
 
-          //TODO: When this is focused, scale up the size of img
         }
 
         & > button {
