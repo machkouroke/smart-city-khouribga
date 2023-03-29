@@ -1,4 +1,4 @@
-package com.lop.smartcitykhouribga.models;
+package com.lop.smartcitykhouribga.models.Entities;
 
 /* TODO: Ecrire le code de la classe User */
 public class User {
