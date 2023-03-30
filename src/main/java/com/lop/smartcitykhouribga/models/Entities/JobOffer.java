@@ -18,7 +18,7 @@ public class JobOffer {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
