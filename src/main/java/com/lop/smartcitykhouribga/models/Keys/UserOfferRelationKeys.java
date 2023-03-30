@@ -31,6 +31,6 @@ public class UserOfferRelationKeys implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserOfferRelationKeys that = (UserOfferRelationKeys) o;
-        return user_id.equals(that.user_id) && offer_id.equals(that.offer_id) && type.equals(that.type);
+        return userId.equals(that.userId) && offerId.equals(that.offerId) && type.equals(that.type);
     }
 }

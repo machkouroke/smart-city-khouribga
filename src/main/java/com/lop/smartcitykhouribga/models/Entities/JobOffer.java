@@ -19,18 +19,23 @@ public class JobOffer {
     @Id
     @GeneratedValue
     @Column(name = "id")
+    @NonNull
     private Long id;
 
     @Column(name = "title")
+    @NonNull
     private String title;
 
     @Column(name = "description")
+    @NonNull
     private String description;
 
     @Column(name = "type")
+    @NonNull
     private String type;
 
     @Column(name = "domain")
+    @NonNull
     private String domain;
 
     @ManyToOne
