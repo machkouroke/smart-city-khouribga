@@ -17,8 +17,8 @@ html {
 body {
     margin: auto;
     line-height: 2rem;
-    background-color: $clr-white;
-    background-image: linear-gradient(to right, $clr-white 50%, $clr-light-accent 60%);
+    background-color: $clr-background;
+    background-image: linear-gradient(to right, $clr-background 50%, $clr-light-accent 60%);
     color: $clr-text;
     font-size: 1rem;
     font-weight: 500;
@@ -74,7 +74,7 @@ button:focus, input:focus {
 }
 
 .card {
-    background-color: $clr-white;
+    background-color: $clr-background;
     padding: 1rem;
     border-radius: 1rem;
     margin: 1rem 0;
@@ -105,7 +105,7 @@ button:focus, input:focus {
 }
 
 .navbar {
-    background: $clr-white;
+    background: $clr-background;
     border-bottom: 1px rgba($clr-grey, 0.15) solid;
     box-shadow: 0 0 1px 0 rgba($clr-grey, 0.1);
     padding: 0.4rem 0;
@@ -217,7 +217,7 @@ button:focus, input:focus {
                         display: block;
                         height: 1px;
                         width: 0px;
-                        background-color: $clr-white;
+                        background-color: $clr-background;
                         position: absolute;
                         left: 0;
                         right: 0;
@@ -388,7 +388,7 @@ button:focus, input:focus {
                 display: block;
                 height: 1px;
                 width: 0px;
-                background-color: $clr-white;
+                background-color: $clr-background;
                 position: absolute;
                 left: 0;
                 right: 0;
@@ -453,7 +453,7 @@ button:focus, input:focus {
     padding: 1rem;
 
     & > .create-post {
-        background-color: $clr-white;
+        background-color: $clr-background;
         border-radius: 1rem;
         padding: 1rem 1rem 0 1rem;
         margin-bottom: 1.5rem;
