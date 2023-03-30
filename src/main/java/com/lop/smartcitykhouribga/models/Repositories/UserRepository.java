@@ -1,5 +1,10 @@
 package com.lop.smartcitykhouribga.models.Repositories;
 
-/* TODO: Ecrire le repository de la classe user les méthodes on vas en discuter fais moi signe au moment de les écrires */
-public class UserRepository {
+
+import com.lop.smartcitykhouribga.models.Entities.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface UserRepository extends PagingAndSortingRepository<User, Long>,
+        CrudRepository<User, Long> {
 }
