@@ -1,7 +1,7 @@
 
 export function CreatePost() {
     return (
-        <div className="create-post d-flex flex-column">
+        <div className="create-post d-flex flex-column card">
             <h6>Poster une offre d'emploi</h6>
             <div className="d-flex mb-2 mt-3">
                 <input className="text-input" type="text" placeholder="Titre de votre offre"/>

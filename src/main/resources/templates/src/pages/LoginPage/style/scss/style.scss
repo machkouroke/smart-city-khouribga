@@ -84,6 +84,10 @@
         padding: 12px 15px;
         margin: 8px 0;
         width: 100%;
+        border-radius: 1rem;
+        &::file-selector-button {
+           display: none;
+        }
     }
 
     .container {
@@ -247,6 +251,16 @@
         color: #3c97bf;
         text-decoration: none;
     }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-radius: 100px;
+        box-shadow:  5px 5px 10px $clr-accent;
+    }
+
 }
 
 

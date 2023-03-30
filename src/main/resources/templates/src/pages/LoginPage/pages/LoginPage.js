@@ -13,7 +13,7 @@ export function LoginPage() {
             if (rightPanelActive) {
                 setRightPanelActiveClass('right-panel-active');
             } else {
-               setRightPanelActiveClass('');
+                setRightPanelActiveClass('');
             }
         }
         , [rightPanelActive, rightPanelActiveClass])

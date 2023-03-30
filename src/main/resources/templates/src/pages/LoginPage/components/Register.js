@@ -2,18 +2,20 @@ import React from "react";
 
 export function Register() {
     return (
-        <div className="form-container sign-up-container">
+        <div className="form-container sign-up-container p-1 ">
             <form action="#">
                 <h1>Inscription</h1>
-                <div className="social-container">
-                    <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                    <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                    <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
+                <div className={"w-100 d-flex "}>
+                    <input type="text" className={"mr-1"} placeholder="Nom"/>
+                    <input type="text" placeholder="Prénom"/>
                 </div>
-                <span>or use your email for registration</span>
-                <input type="text" placeholder="Name"/>
                 <input type="email" placeholder="Email"/>
-                <input type="password" placeholder="Password"/>
+                <div className={"w-100 d-flex "}>
+                    <input type="file" className={"mr-1"} placeholder="Votre cv"/>
+                    <input type="file" placeholder="Votre phot"/>
+                </div>
+
+                <input type="password" placeholder="Mot de passe"/>
                 <button>S'inscrire</button>
             </form>
         </div>
