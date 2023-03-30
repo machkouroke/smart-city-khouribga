@@ -3,9 +3,10 @@ package com.lop.smartcitykhouribga.models.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-/* TODO: Ecrire le code de la classe User */
 @Getter @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -17,27 +18,30 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    @NonNull
+    private Long id;
 
     @Column(name = "name")
+    @NonNull
     private String name;
 
     @Column(name = "surname")
+    @NonNull
     private String surname;
 
     @Column(name = "mail")
+    @NonNull
     private String mail;
 
     @Column(name = "cv")
+    @NonNull
     private String cv;
 
     @Column(name = "role")
+    @NonNull
     private String role;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_offer_relations",
-                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "id")
-    )
-    private List<JobOffer> offers;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<UserOfferRelation> relatedOffers= new HashSet<>();
 }
