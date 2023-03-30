@@ -16,11 +16,11 @@ public class UserOfferRelationKeys implements Serializable {
 
     @Column(name = "user_id")
     @NonNull
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "offer_id")
     @NonNull
-    private Long offer_id;
+    private Long offerId;
 
     @Column(name = "type")
     @NonNull
