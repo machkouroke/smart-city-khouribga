@@ -1,4 +1,5 @@
-import '../style/scss/styles.scss';
+import '../style/scss/style.scss';
+
 import {LeftSidebar} from "../components/LeftSidebar";
 import {CreatePost} from "../components/CreatePost";
 import {UserPost} from "../components/UserPost";
@@ -7,9 +8,8 @@ import {NavBar} from "../components/NavBar";
 import React from "react";
 
 export function Main(props) {
-    console.log(props.data);
     return (
-        <React.Fragment>
+        <div className={"dashboard"}>
 
             <NavBar/>
 
@@ -26,7 +26,7 @@ export function Main(props) {
                     <RightSideBar/>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     )
 }
 

@@ -1,4 +1,3 @@
-import '../style/scss/styles.scss';
 import {Menu} from "./Menu";
 
 const candy = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fcandyahogoudedji%40gmail.com.png?alt=media&token=6f132115-1634-4ec7-ab7d-91fbccbc1b2f";

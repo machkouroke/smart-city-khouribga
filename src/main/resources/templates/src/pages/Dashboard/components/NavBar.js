@@ -1,5 +1,4 @@
 import React from 'react';
-import '../style/scss/styles.scss';
 export function NavBar() {
 
     return (
@@ -42,7 +41,7 @@ export function NavBar() {
                                     <div className="col-lg-4 col-12">
                                         <ul className="navbar-nav">
                                             <li>
-                                                <a href="#"
+                                                <a href="templates/src/components#"
                                                 >Se déconnecter<i
                                                     className="fas fa-sign-out-alt"
                                                 ></i

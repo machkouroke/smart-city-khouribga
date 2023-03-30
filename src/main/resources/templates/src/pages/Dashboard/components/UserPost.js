@@ -1,4 +1,3 @@
-import '../style/scss/styles.scss';
 const pierre = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fe.bertried%40gmail.com.png?alt=media&token=4732a887-bf98-4c3a-b865-20bda05d7add";
 
 export function UserPost() {

@@ -1,4 +1,3 @@
-import '../style/scss/styles.scss';
 
 export function CreatePost() {
     return (
