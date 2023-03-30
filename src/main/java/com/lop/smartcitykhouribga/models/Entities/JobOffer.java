@@ -3,9 +3,10 @@ package com.lop.smartcitykhouribga.models.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-/* TODO: Ecrire le code de la classe User */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,6 +36,7 @@ public class JobOffer {
     @ManyToOne
     private Entreprise entreprise;
 
-    @ManyToMany(mappedBy = "offers")
-    private List<User> users;
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<UserOfferRelation> relatedUsers= new HashSet<>();
 }
