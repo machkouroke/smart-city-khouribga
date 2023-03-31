@@ -10,7 +10,6 @@ export function NavBar() {
                     <div className="container-fluid row">
                         <div className="col-lg-3 col-12 nav-brand">
                             <div className="d-flex align-items-center">
-                                <img className={"logo"} src={logo} width={20} height={20}/>
 
                                 <h6>SmartCityWork</h6>
                             </div>
