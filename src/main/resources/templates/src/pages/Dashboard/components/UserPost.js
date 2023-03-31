@@ -1,31 +1,22 @@
-const pierre = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fe.bertried%40gmail.com.png?alt=media&token=4732a887-bf98-4c3a-b865-20bda05d7add";
+import style from "../style/scss/tailwind.module.scss"
+import PropTypes from 'prop-types';
 
-export function UserPost() {
-    const offer = [
-        {
-            title: "Développeur Frontend",
-            postedAt: "5 mins ago",
-            type: "Contrat à durée indéterminé",
-            description: " Nous cherchons pour un stage PFE à partir du mois d'Avril, à faire participer un(e) jeune\n" +
-                "                talentueux(se) lauréat(e) spécialisation web développement pour une période de 3mois sur Rabat pour\n" +
-                "                la refonte de: www.empower.ma\n" +
-                "                pour les intéressés habitant à Rabat merci d'adresser vos CV à contact@empower.ma"
-        }
-    ]
+export function UserPost(props) {
+    const offer =
+       props.offer
+
     return (
-        <div className=" card">
-            <div  className="post card">
+        <div>
+            <div className="post card">
                 <div className="d-flex user">
                     <img
                         className="rounded-circle"
-                        src={pierre}
+                        src={offer.picture}
                         alt="profile picture"
                     />
                     <div>
-                        <h6 className="text-center">Développeur Frontend</h6>
-                        <span className="text-center">5 mins ago</span>
-                        <span className="text-center">Contrat à durée indéterminé</span>
-                        <span className="text-center">Informatique</span>
+                        <h6 className="text-center">{offer.title}</h6>
+                        <span className="text-center">{offer.type}</span>
 
                     </div>
                     <a href="templates/src/components#">
@@ -34,20 +25,33 @@ export function UserPost() {
                 </div>
 
                 <p>
-                    <h4 className="about text-center ">À propos de l'offre</h4>
-                    <span className="black text-center">
-                     Nous cherchons pour un stage PFE à partir du mois d'Avril, à faire participer un(e) jeune
-                talentueux(se) lauréat(e) spécialisation web développement pour une période de 3mois sur Rabat pour
-                la refonte de: www.empower.ma
-                pour les intéressés habitant à Rabat merci d'adresser vos CV à contact@empower.ma
-                </span>
+
+                    <i className="fa fa-clock m-3"></i> {offer.postedAt}<br/>
+                    <i className="fa fa-location-arrow m-3"></i> {offer.location}<br/>
+                    <i className="fa fa-briefcase m-3"></i> {offer.domain}<br/>
+                    <i className="fa fa-envelope m-3"></i> <a
+                    href={`mailto:${offer.contact}`}>{offer.contact}</a><br/>
+                    <p className="black mx-3">
+                        {offer.description}
+                    </p>
+
 
                 </p>
+                <div className={"d-flex"}>
+                    {
+                        offer.tag.map((tag) =>
+                            <div
+                                className="inline-block bg-gray-200 rounded-full px-3 mx-2 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                #{tag}
+                            </div>)
+                    }
+
+                </div>
 
 
                 {/*Post Actions */}
                 <div className="d-flex post-actions">
-                    <button className="w-100 text-center"><i className="far fa-tiktok"></i>Postuler</button>
+                    <button className="w-100 text-center"><i className="fa fa-briefcase "></i>Postuler</button>
 
                     <button className="w-100 text-center"><i className="far fa-thumbs-up"></i>120k Likes
                     </button>
@@ -58,4 +62,8 @@ export function UserPost() {
 
         </div>
     )
-}   
+}
+
+UserPost.propTypes = {
+    offer: PropTypes.object.isRequired
+}
