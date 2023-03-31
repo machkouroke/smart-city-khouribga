@@ -61,7 +61,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: $font, sans-serif;
     color: $clr-black;
 }
 
@@ -91,7 +91,7 @@ button:focus, input:focus {
     font-style: bold;
     font-size: 0.7rem;
     letter-spacing: 0.1rem;
-    font-family: 'Poppins';
+    font-family: $font;
     font-weight: 600;
     color: $clr-black;
     border: none;
@@ -313,7 +313,7 @@ button:focus, input:focus {
             text-align: start;
             border-radius: 0.5rem;
             color: $clr-black;
-            font-family: 'Poppins';
+            font-family: $font;
             font-weight: 600;
             font-size: 0.85rem;
             letter-spacing: 0.03rem;
@@ -378,7 +378,7 @@ button:focus, input:focus {
             display: table;
             color: $clr-black;
             margin: 0.5rem 0.5em;
-            font-family: 'Poppins';
+            font-family: $font;
             font-size: 0.85rem;
             font-weight: 600;
             position: relative;
