@@ -1,12 +1,14 @@
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css");
+.dashboard {
 
+}
 .text-input {
 
   width: 100%;
   border: none;
   margin: 0 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: $clr-white;
+  background-color: $clr-background;
   color: $clr-black;
   transition: background-color ease-in-out 250ms;
   border-radius: 1rem;
@@ -26,7 +28,7 @@
 
   ::file-selector-button {
     background-color: $clr-accent;
-    color: $clr-white;
+    color: $clr-background;
     border: none;
     border-radius: 1rem;
     padding: 0.5rem 1rem;
@@ -65,4 +67,14 @@
 .black {
   /* Font weight not bold */
   font-weight: normal !important;
+  text-align: left;
+
+}
+
+.logo {
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 100px;
+  box-shadow:  5px 5px 10px $clr-accent;
 }

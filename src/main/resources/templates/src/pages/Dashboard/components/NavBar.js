@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/scss/styles.scss';
+
 export function NavBar() {
 
     return (
@@ -8,7 +8,11 @@ export function NavBar() {
                 <div className="container">
                     <div className="container-fluid row">
                         <div className="col-lg-3 col-12 nav-brand">
-                            <h6>SmartCityWork</h6>
+                            <div className="d-flex align-items-center">
+
+                                <h6>SmartCityWork</h6>
+                            </div>
+
                             <button
                                 className="navbar-toggler"
                                 type="button"
@@ -42,7 +46,7 @@ export function NavBar() {
                                     <div className="col-lg-4 col-12">
                                         <ul className="navbar-nav">
                                             <li>
-                                                <a href="#"
+                                                <a href="templates/src/components#"
                                                 >Se déconnecter<i
                                                     className="fas fa-sign-out-alt"
                                                 ></i

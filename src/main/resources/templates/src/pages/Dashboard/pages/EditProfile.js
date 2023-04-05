@@ -1,4 +1,4 @@
-import '../style/scss/styles.scss';
+import '../style/scss/style.scss';
 import {LeftSidebar} from "../components/LeftSidebar";
 import {NavBar} from "../components/NavBar";
 import React from "react";
@@ -7,7 +7,7 @@ import {UserEditBlock} from "../components/UserEditBlock";
 export function EditProfile(props) {
     console.log(props.data);
     return (
-        <React.Fragment>
+        <div className={"dashboard"}>
 
             <NavBar/>
 
@@ -24,7 +24,7 @@ export function EditProfile(props) {
 
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     )
 }
 
