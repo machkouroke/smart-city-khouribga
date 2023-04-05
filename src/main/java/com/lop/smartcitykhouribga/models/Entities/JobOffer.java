@@ -3,6 +3,7 @@ package com.lop.smartcitykhouribga.models.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,10 @@ public class JobOffer {
     @Column(name = "domain")
     @NonNull
     private String domain;
+
+    @Column(name = "postedAt")
+    @NonNull
+    private Date postedAt;
 
     @ManyToOne
     private Entreprise entreprise;
