@@ -1,6 +1,5 @@
 import React from 'react';
 
-import logo from '../img/smartwork.svg';
 export function NavBar() {
 
     return (

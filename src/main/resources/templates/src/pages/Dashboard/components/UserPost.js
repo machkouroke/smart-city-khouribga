@@ -37,11 +37,12 @@ export function UserPost(props) {
 
 
                 </p>
-                <div className={"d-flex"}>
+                <div className={"d-flex flex-wrap"}>
                     {
                         offer.tag.map((tag) =>
                             <div
-                                className="inline-block bg-gray-200 rounded-full px-3 mx-2 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                className={style.tag}
+                        >
                                 #{tag}
                             </div>)
                     }

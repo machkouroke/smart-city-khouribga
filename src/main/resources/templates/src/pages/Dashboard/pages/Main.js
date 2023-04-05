@@ -25,7 +25,10 @@ export function Main(props) {
             contact: "contact@empower.ma",
             tag: [
                 "Développeur Frontend",
-                "Web Dev"
+                "Web Dev",
+                "Web Dev",
+                "Web Dev",
+                "Web Dev",
             ]
         }
     ]

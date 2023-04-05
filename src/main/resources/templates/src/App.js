@@ -16,7 +16,7 @@ function App() {
                 <Route path="/applied_offer" element={<Main data="applied"/>}/>
                 <Route path="/edit_profile" element={<EditProfile />}/>
                 <Route path="/login" element={<LoginPage />}/>
-                <Route path="*" element={<div><h1>Page Not Found</h1></div>}/>
+                <Route path="*" element={<div><h1 className={"text-center"}>Page Not Found</h1></div>}/>
             </Routes>
         </BrowserRouter>
 

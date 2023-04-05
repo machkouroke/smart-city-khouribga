@@ -3,11 +3,12 @@ import "../style/scss/style.scss";
 import {Login} from "../components/Login";
 import {Register} from "../components/Register";
 import {Overlay} from "../components/Overlay";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 export function LoginPage() {
     const rightPanelActive = useSelector(state => state.active.rightPanelActive);
     const [rightPanelActiveClass, setRightPanelActiveClass] = useState('');
+
     useEffect(
         () => {
             if (rightPanelActive) {
