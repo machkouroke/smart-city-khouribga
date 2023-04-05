@@ -42,6 +42,14 @@ public class User {
     @NonNull
     private String role;
 
+    @Column(name = "password")
+    @NonNull
+    private String pwd;
+
+    @Column(name = "photo")
+    @NonNull
+    private String photo;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<UserOfferRelation> relatedOffers= new HashSet<>();
