@@ -33,4 +33,10 @@ public class UserOfferRelationKeys implements Serializable {
         UserOfferRelationKeys that = (UserOfferRelationKeys) o;
         return userId.equals(that.userId) && offerId.equals(that.offerId) && type.equals(that.type);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }
