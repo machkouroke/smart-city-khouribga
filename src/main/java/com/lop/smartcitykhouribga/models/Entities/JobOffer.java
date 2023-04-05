@@ -20,7 +20,6 @@ public class JobOffer {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    @NonNull
     private Long id;
 
     @Column(name = "title")

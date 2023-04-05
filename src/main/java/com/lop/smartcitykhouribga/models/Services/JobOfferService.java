@@ -1,8 +1,10 @@
 package com.lop.smartcitykhouribga.models.Services;
 
+import com.lop.smartcitykhouribga.models.Entities.Entreprise;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
+import com.lop.smartcitykhouribga.models.Repositories.CompanyRepository;
 import com.lop.smartcitykhouribga.models.Repositories.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +18,20 @@ public class JobOfferService {
 
     private JobOfferRepository jobOfferRepository;
 
+    private CompanyRepository companyRepository;
+
     @Autowired
-    public JobOfferService(JobOfferRepository jobOfferRepository) {
+    public JobOfferService(JobOfferRepository jobOfferRepository, CompanyRepository companyRepository) {
         this.jobOfferRepository = jobOfferRepository;
+        this.companyRepository = companyRepository;
     }
 
-    public JobOffer saveOffer(JobOffer toSave){
-        JobOffer newOffer= this.jobOfferRepository.save(toSave);
-        return newOffer;
+    public JobOffer save(JobOffer toSave){
+        return this.jobOfferRepository.save(toSave);
+    }
+
+    public Entreprise saveCompany(Entreprise e){
+        return this.companyRepository.save(e);
     }
 
     public void deletebyId(Long id){
