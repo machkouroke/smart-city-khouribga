@@ -1,13 +1,12 @@
 package com.lop.smartcitykhouribga.controllers;
 
+import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -18,8 +17,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable long id){
+    public User getUser(@PathVariable Long id){
         return userService.findById(id);
+    }
+
+    @GetMapping("/{id}/offers/{type}")
+    public Set<JobOffer> getRelatedOffers(@PathVariable Long id, @PathVariable String type){
+        return userService.findOffersRelatedToUser(id, type);
     }
 
 
