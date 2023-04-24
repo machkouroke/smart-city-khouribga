@@ -4,6 +4,8 @@ import com.lop.smartcitykhouribga.models.Entities.DTO.OfferDTO;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserDetailsImpl;
+import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
+import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -33,8 +36,29 @@ public class JobOfferController {
                          @ModelAttribute OfferDTO dto){
 
         User user = details.getUser(userRepository);
+        dto.setPostedAt(new Date());
 
-        
+        JobOffer offer= offerService.save(offerService.convertToEntity(dto));
+
+        userService.saveRelation(user, offer, "posted");
+    }
+
+    @PostMapping("/like")
+    public void likeOffer(@AuthenticationPrincipal UserDetailsImpl details,
+                          @RequestParam("id") Long id){
+        User user = details.getUser(userRepository);
+        JobOffer offer= offerService.findById(id);
+
+        userService.saveRelation(user, offer, "liked");
+    }
+
+    @PostMapping("/postulate")
+    public void postulateOffer(@AuthenticationPrincipal UserDetailsImpl details,
+                          @RequestParam("id") Long id){
+        User user = details.getUser(userRepository);
+        JobOffer offer= offerService.findById(id);
+
+        userService.saveRelation(user, offer, "postulated");
     }
 
     @GetMapping("/")
