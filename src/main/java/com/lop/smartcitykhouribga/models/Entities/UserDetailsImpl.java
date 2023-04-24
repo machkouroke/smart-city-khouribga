@@ -22,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
         username = user.getMail();
         password = user.getPwd();
 
-        rolesAndAuthorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
+        rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
