@@ -1,5 +1,8 @@
 package com.lop.smartcitykhouribga.models.Entities;
 
+import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
+@Setter
 public class UserDetailsImpl implements UserDetails {
     private final String username;
     private final String password;
@@ -53,5 +58,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser(UserRepository userRepository){
+        User user= userRepository.findByMail(getUsername());
+        assert user != null;
+        return user;
     }
 }
