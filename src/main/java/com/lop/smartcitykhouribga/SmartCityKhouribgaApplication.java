@@ -1,18 +1,14 @@
 package com.lop.smartcitykhouribga;
 
-import com.lop.smartcitykhouribga.models.Entities.Entreprise;
-import com.lop.smartcitykhouribga.models.Entities.JobOffer;
-import com.lop.smartcitykhouribga.models.Entities.User;
-import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
-import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
-import com.lop.smartcitykhouribga.models.Services.JobOfferService;
-import com.lop.smartcitykhouribga.models.Services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.lop.smartcitykhouribga.models.Services.FirebaseService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 
 @SpringBootApplication
 public class SmartCityKhouribgaApplication {
@@ -20,10 +16,15 @@ public class SmartCityKhouribgaApplication {
 
     public static void main(String[] args) {
 
-        var context =         SpringApplication.run(SmartCityKhouribgaApplication.class, args);
+        var context = SpringApplication.run(SmartCityKhouribgaApplication.class, args);
+        FirebaseService firebaseService = context.getBean(FirebaseService.class);
+        Bucket bucket = firebaseService.getBucket();
 
-        UserService userService= context.getBean(UserService.class);
-        JobOfferService offerService= context.getBean(JobOfferService.class);
+        /* get a blob with his path */
+        Blob blob = bucket.get("User/Cv/20211212_160005_compress53.jpg");
+        System.out.println(blob.signUrl(1000, TimeUnit.DAYS));
+//        UserService userService = context.getBean(UserService.class);
+//        JobOfferService offerService = context.getBean(JobOfferService.class);
 
 //        User user1= new User("OKE","Machkour","oke@gmail.com","qwertyu","recruteur","ewrg","qwddvcv");
 //        User user2= new User("KOUHOSSOUNON","Morel","momo@gmail.com","qwertvbvbdv","user","avbc","xcvbbnn");
