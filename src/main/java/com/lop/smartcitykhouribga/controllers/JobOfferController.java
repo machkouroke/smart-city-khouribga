@@ -4,6 +4,7 @@ import com.lop.smartcitykhouribga.models.Entities.DTO.OfferDTO;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserDetailsImpl;
+import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,19 @@ public class JobOfferController {
     @Autowired
     private JobOfferService offerService;
 
+    @Autowired
+    UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
 
     @PostMapping("/add")
-    public void addOffer(@AuthenticationPrincipal UserDetailsImpl userDetails,
+    public void addOffer(@AuthenticationPrincipal UserDetailsImpl details,
                          @ModelAttribute OfferDTO dto){
-//        Object userRepository;
-//        User user = details.getUser(userRepository);
+
+        User user = details.getUser(userRepository);
+
+        
     }
 
     @GetMapping("/")

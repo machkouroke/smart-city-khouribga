@@ -6,6 +6,7 @@ import com.google.cloud.storage.Bucket;
 import com.lop.smartcitykhouribga.models.Services.FirebaseService;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
+import com.lop.smartcitykhouribga.utilities.FileUtility;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,6 +33,9 @@ public class SmartCityKhouribgaApplication {
 
         var context = SpringApplication.run(SmartCityKhouribgaApplication.class, args);
         FirebaseService firebaseService = context.getBean(FirebaseService.class);
+        FileUtility fileUtility= context.getBean(FileUtility.class);
+
+        fileUtility.test();
         Bucket bucket = firebaseService.getBucket();
 
         /* get a blob with his path */
