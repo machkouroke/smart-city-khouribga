@@ -23,11 +23,7 @@ public class UserController {
     public ResponseEntity<Object> saveUser(@ModelAttribute User user,
                                            @RequestParam("cv")MultipartFile cv,
                                            @RequestParam("photo") MultipartFile photo) throws IOException {
-        userService.uploadUserCV(user, cv);
-        userService.uploadUserPhoto(user, photo);
-        user.setRole("recruiter");
-
-        userService.save(user);
+        userService.register(user, cv, photo);
         return ResponseEntity.ok().build();
     }
 
