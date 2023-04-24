@@ -1,15 +1,23 @@
 package com.lop.smartcitykhouribga.models.Entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 public class UserDetailsImpl implements UserDetails {
     private final String username;
     private final String password;
     private final List<GrantedAuthority> rolesAndAuthorities;
 
     public UserDetailsImpl(User user) {
-        username = user.getUsername();
-        password = user.getPassword();
+        username = user.getMail();
+        password = user.getPwd();
 
-        rolesAndAuthorities = List.of(new SimpleGrantedAuthority(user.getRole()));
+        rolesAndAuthorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
