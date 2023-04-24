@@ -1,5 +1,6 @@
 package com.lop.smartcitykhouribga.models.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,6 @@ public class Entreprise {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    @NonNull
     private Long id;
 
     @Column(name = "name")
@@ -28,5 +28,6 @@ public class Entreprise {
     private String location;
 
     @OneToMany(mappedBy = "entreprise")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<JobOffer> offers;
 }

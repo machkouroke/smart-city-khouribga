@@ -4,6 +4,7 @@ import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
 import com.lop.smartcitykhouribga.models.Repositories.JobOfferRepository;
+import com.lop.smartcitykhouribga.models.Repositories.RelationRepository;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +17,24 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final JobOfferRepository jobOfferRepository;
+    private final RelationRepository relationRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, JobOfferRepository jobOfferRepository) {
+    public UserService(UserRepository userRepository, JobOfferRepository jobOfferRepository, RelationRepository relationRepository) {
         this.userRepository = userRepository;
-        this.jobOfferRepository = jobOfferRepository;
+        this.relationRepository = relationRepository;
     }
 
-    public User saveUser(User toSave){
+    public User save(User toSave){
         User newUser= this.userRepository.save(toSave);
         return newUser;
     }
 
-    public void deleteUser(Long id){
+    public UserOfferRelation saveRelation(UserOfferRelation toSave){
+        return this.relationRepository.save(toSave);
+    }
+
+    public void delete(Long id){
         User user= this.userRepository.findById(id).orElse(null);
         if(user == null){
             throw new IndexOutOfBoundsException();

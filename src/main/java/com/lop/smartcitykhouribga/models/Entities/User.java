@@ -1,5 +1,6 @@
 package com.lop.smartcitykhouribga.models.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    @NonNull
     private Long id;
 
     @Column(name = "name")
@@ -52,5 +52,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<UserOfferRelation> relatedOffers= new HashSet<>();
 }
