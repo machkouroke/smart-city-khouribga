@@ -43,6 +43,8 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.11.0'
 
+    implementation 'org.modelmapper:modelmapper:3.1.0'
+
 }
 
 tasks.named('test') {

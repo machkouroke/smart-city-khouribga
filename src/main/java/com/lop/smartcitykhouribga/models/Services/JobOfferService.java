@@ -1,11 +1,13 @@
 package com.lop.smartcitykhouribga.models.Services;
 
+import com.lop.smartcitykhouribga.models.Entities.DTO.OfferDTO;
 import com.lop.smartcitykhouribga.models.Entities.Entreprise;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
 import com.lop.smartcitykhouribga.models.Repositories.CompanyRepository;
 import com.lop.smartcitykhouribga.models.Repositories.JobOfferRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,13 @@ public class JobOfferService {
 
     private CompanyRepository companyRepository;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public JobOfferService(JobOfferRepository jobOfferRepository, CompanyRepository companyRepository) {
+    public JobOfferService(JobOfferRepository jobOfferRepository, CompanyRepository companyRepository, ModelMapper modelMapper) {
         this.jobOfferRepository = jobOfferRepository;
         this.companyRepository = companyRepository;
+        this.modelMapper = modelMapper;
     }
 
     public JobOffer save(JobOffer toSave){
@@ -70,5 +75,21 @@ public class JobOfferService {
                 )
                 .map(UserOfferRelation::getUser)
                 .collect(Collectors.toSet());
+    }
+
+    public JobOffer convertToEntity(OfferDTO offerDTO){
+        Entreprise e= companyRepository.findByName(offerDTO.getEnterpriseName());
+
+        JobOffer offer= modelMapper.map(offerDTO, JobOffer.class);
+        offer.setEntreprise(e);
+
+        return offer;
+    }
+
+    public OfferDTO convertToDTO(JobOffer offer){
+        OfferDTO dto= modelMapper.map(offer, OfferDTO.class);
+        dto.setEnterpriseName(offer.getEntreprise().getName());
+
+        return dto;
     }
 }
