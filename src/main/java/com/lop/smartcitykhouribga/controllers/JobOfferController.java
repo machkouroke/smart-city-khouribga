@@ -37,6 +37,8 @@ public class JobOfferController {
         return offerService.searchOffers(word);
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity
+    @DeleteMapping("/{id}")
+    public void deleteOffers(@PathVariable Long id){
+        offerService.deletebyId(id);
+    }
 }

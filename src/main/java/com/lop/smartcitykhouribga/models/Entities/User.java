@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @ToString
 @Entity
@@ -50,7 +50,8 @@ public class User {
     private Set<UserOfferRelation> relatedOffers= new HashSet<>();
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public String picture_link() {
-        return "https://firebasestorage.googleapis.com/v0/b/smart-city-915d9.appspot.com/o/users%2F" + this.id + "?alt=media";
-    }
+    public String picture_link;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public String cv_link;
 }

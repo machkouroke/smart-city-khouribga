@@ -23,46 +23,51 @@ public class UserService {
     private final UserRepository userRepository;
     private final RelationRepository relationRepository;
 
+    private final FirebaseService firebaseService;
+
     @Autowired
-    public UserService(UserRepository userRepository, JobOfferRepository jobOfferRepository, RelationRepository relationRepository) {
+    public UserService(UserRepository userRepository, JobOfferRepository jobOfferRepository,
+                       RelationRepository relationRepository, FirebaseService firebaseService) {
+
         this.userRepository = userRepository;
         this.relationRepository = relationRepository;
+        this.firebaseService = firebaseService;
     }
 
-    public User save(User toSave){
-        User newUser= this.userRepository.save(toSave);
+    public User save(User toSave) {
+        User newUser = this.userRepository.save(toSave);
         return newUser;
     }
 
-    public UserOfferRelation saveRelation(UserOfferRelation toSave){
+    public UserOfferRelation saveRelation(UserOfferRelation toSave) {
         return this.relationRepository.save(toSave);
     }
 
-    public void delete(Long id){
-        User user= this.userRepository.findById(id).orElse(null);
-        if(user == null){
+    public void delete(Long id) {
+        User user = this.userRepository.findById(id).orElse(null);
+        if (user == null) {
             throw new IndexOutOfBoundsException();
         }
         this.userRepository.deleteById(id);
     }
 
-    public User findById(Long id){
-        User user= this.userRepository.findById(id).orElse(null);
-        if(user == null){
+    public User findById(Long id) {
+        User user = this.userRepository.findById(id).orElse(null);
+        if (user == null) {
             throw new IndexOutOfBoundsException();
         }
         return user;
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return (List<User>) this.userRepository.findAll();
     }
 
-    public Set<JobOffer> findOffersRelatedToUser(Long id, String type){
-        User user= this.userRepository.findById(id).orElse(null);
+    public Set<JobOffer> findOffersRelatedToUser(Long id, String type) {
+        User user = this.userRepository.findById(id).orElse(null);
         return user.getRelatedOffers()
                 .stream()
-                .filter(relatedOffer->
+                .filter(relatedOffer ->
                         relatedOffer.getId()
                                 .getType()
                                 .equals(type))
@@ -73,25 +78,25 @@ public class UserService {
     }
 
     public void uploadUserCV(User user, MultipartFile cv) throws IOException {
-        if(validateFiles(cv)){
-            String extension= FilenameUtils.getExtension(cv.getOriginalFilename());
-            String cvPathname= "C:\\Users\\USER\\Desktop\\" +
-                    "IID 2\\Mes cours\\Semestre 2\\JEE\\TP\\cv\\"+ user.getName()+"."+extension;
+        if (validateFiles(cv)) {
+            String extension = FilenameUtils.getExtension(cv.getOriginalFilename());
+            String cvPathname = "C:\\Users\\USER\\Desktop\\" +
+                    "IID 2\\Mes cours\\Semestre 2\\JEE\\TP\\cv\\" + user.getName() + "." + extension;
             cv.transferTo(new File(cvPathname));
         }
     }
 
-    public void uploadUserPhoto(User user,MultipartFile photo) throws IOException {
-        if(validateFiles(photo)){
-            String extension= FilenameUtils.getExtension(photo.getOriginalFilename());
-            String photoPathname= "C:\\Users\\USER\\Desktop\\" +
-                    "IID 2\\Mes cours\\Semestre 2\\JEE\\TP\\photo\\"+ user.getName()+"."+extension;
+    public void uploadUserPhoto(User user, MultipartFile photo) throws IOException {
+        if (validateFiles(photo)) {
+            String extension = FilenameUtils.getExtension(photo.getOriginalFilename());
+            String photoPathname = "C:\\Users\\USER\\Desktop\\" +
+                    "IID 2\\Mes cours\\Semestre 2\\JEE\\TP\\photo\\" + user.getName() + "." + extension;
             photo.transferTo(new File(photoPathname));
         }
     }
 
-    public boolean validateFiles(MultipartFile file){
-        String extension= FilenameUtils.getExtension(file.getOriginalFilename());
+    public boolean validateFiles(MultipartFile file) {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         return extension != null && (
                 extension.equals("png")
                         || extension.equals("jpg")
