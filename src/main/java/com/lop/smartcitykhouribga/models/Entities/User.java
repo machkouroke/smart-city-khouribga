@@ -1,6 +1,7 @@
 package com.lop.smartcitykhouribga.models.Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lop.smartcitykhouribga.models.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,7 +38,8 @@ public class User {
 
     @Column(name = "role")
     @NonNull
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "password")
     @NonNull
