@@ -1,18 +1,9 @@
 package com.lop.smartcitykhouribga;
 
-import com.lop.smartcitykhouribga.models.Entities.Entreprise;
-import com.lop.smartcitykhouribga.models.Entities.JobOffer;
-import com.lop.smartcitykhouribga.models.Entities.User;
-import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
-import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.util.Date;
 
 @SpringBootApplication
 public class SmartCityKhouribgaApplication {
