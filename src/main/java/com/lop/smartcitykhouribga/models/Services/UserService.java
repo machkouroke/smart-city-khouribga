@@ -39,6 +39,15 @@ public class UserService {
         return newUser;
     }
 
+    public void register(User user, MultipartFile cv, MultipartFile photo) throws IOException {
+        uploadUserCV(user, cv);
+        uploadUserPhoto(user, photo);
+
+        user.setRole("applicant");
+
+        save(user);
+    }
+
     public UserOfferRelation saveRelation(UserOfferRelation toSave) {
         return this.relationRepository.save(toSave);
     }

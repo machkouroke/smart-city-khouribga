@@ -6,4 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CompanyRepository extends PagingAndSortingRepository<Entreprise, Long>,
         CrudRepository<Entreprise, Long> {
+
+    Entreprise findByName(String name);
 }
