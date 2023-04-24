@@ -3,6 +3,7 @@ package com.lop.smartcitykhouribga.models.Services;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
+import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
 import com.lop.smartcitykhouribga.models.Repositories.JobOfferRepository;
 import com.lop.smartcitykhouribga.models.Repositories.RelationRepository;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
@@ -60,8 +61,11 @@ public class UserService {
         save(user);
     }
 
-    public UserOfferRelation saveRelation(UserOfferRelation toSave) {
-        return this.relationRepository.save(toSave);
+    public UserOfferRelation saveRelation(User user, JobOffer offer, String type) {
+        UserOfferRelation uor= new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
+
+        return this.relationRepository.save(uor);
     }
 
     public void delete(Long id) {
