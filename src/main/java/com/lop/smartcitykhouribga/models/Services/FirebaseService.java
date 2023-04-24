@@ -16,6 +16,8 @@ public class FirebaseService {
     private static final String CREDENTIALS_PATH = "credentials.json";
     private static final String GCLOUD_BUCKET = "smart-city-915d9.appspot.com";
 
+    private Bucket bucket;
+
     public FirebaseService() {
         try {
             /* print current path */
@@ -29,12 +31,13 @@ public class FirebaseService {
                     .setStorageBucket(GCLOUD_BUCKET)
                     .build();
             FirebaseApp.initializeApp(options);
+            bucket = StorageClient.getInstance().bucket();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public Bucket getBucket() {
-        return StorageClient.getInstance().bucket();
+        return bucket;
     }
 }
