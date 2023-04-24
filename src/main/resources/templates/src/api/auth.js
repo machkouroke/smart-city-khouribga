@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = ""
+import {BASE_URL} from "../config";
 
 function login(mail, password) {
     const option = {
@@ -35,14 +35,8 @@ function logout(token) {
 }
 
 function register(user_data) {
-    const option = {
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-
     const url = `${BASE_URL}/Users`
-    return axios.post(url, user_data, option)
+    return axios.post(url, user_data)
         .then(({data}) => {
             return data
         })
