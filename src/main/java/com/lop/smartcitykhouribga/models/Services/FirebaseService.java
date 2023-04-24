@@ -3,6 +3,7 @@ package com.lop.smartcitykhouribga.models.Services;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -43,9 +44,9 @@ public class FirebaseService {
         return bucket;
     }
 
-    public void uploadFile(String fileName, String dstPath) throws FileNotFoundException {
-        bucket.create(String.format("%s/%s", dstPath, fileName),
-                new FileInputStream(fileName), "application/octet-stream");
+    public void uploadFile(Path fileName, String dstPath) throws FileNotFoundException {
+        bucket.create(String.format("%s/%s", dstPath, fileName.getFileName()),
+                new FileInputStream(fileName.toFile()), "application/octet-stream");
     }
 
     public String getFileUrl(String filePath) {
