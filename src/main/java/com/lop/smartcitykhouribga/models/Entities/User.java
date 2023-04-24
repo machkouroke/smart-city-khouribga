@@ -34,6 +34,9 @@ public class User {
     @NonNull
     private String mail;
 
+    @Column(name = "cv")
+    @NonNull
+    private String cv;
 
     @Column(name = "role")
     @NonNull
@@ -43,6 +46,9 @@ public class User {
     @NonNull
     private String pwd;
 
+    @Column(name = "photo")
+    @NonNull
+    private String photo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

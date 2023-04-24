@@ -4,8 +4,10 @@ import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Set;
@@ -35,10 +37,5 @@ public class JobOfferController {
     @GetMapping("/search/{word}")
     public List<JobOffer> search(@PathVariable String word){
         return offerService.searchOffers(word);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteOffers(@PathVariable Long id){
-        offerService.deletebyId(id);
     }
 }

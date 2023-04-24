@@ -38,3 +38,7 @@ out/
 .vscode/
 *.lock*
 *node_modules*
+
+gradlew
+gradlew.bat
+settings.gradle
