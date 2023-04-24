@@ -23,7 +23,7 @@ public class JobOfferController {
     }
 
     @GetMapping("/{id}")
-    public JobOffer getUser(@PathVariable Long id){
+    public JobOffer getOffer(@PathVariable Long id){
         return offerService.findById(id);
     }
 

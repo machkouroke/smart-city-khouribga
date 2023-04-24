@@ -6,6 +6,7 @@ import com.google.cloud.storage.Bucket;
 import com.lop.smartcitykhouribga.models.Services.FirebaseService;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -20,6 +21,11 @@ public class SmartCityKhouribgaApplication {
     @Bean
     public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
     public static void main(String[] args) {
