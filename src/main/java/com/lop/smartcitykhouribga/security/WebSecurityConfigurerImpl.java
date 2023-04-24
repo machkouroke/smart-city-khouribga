@@ -18,7 +18,6 @@ public class WebSecurityConfigurerImpl {
     PasswordEncoder encoder;
 
 
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -33,6 +32,7 @@ public class WebSecurityConfigurerImpl {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/offers/**").authenticated()
+
                 .anyRequest()
                 .permitAll()
                 .and()

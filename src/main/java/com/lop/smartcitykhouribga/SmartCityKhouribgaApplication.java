@@ -9,6 +9,7 @@ import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.annotation.Bean;
@@ -22,15 +23,15 @@ public class SmartCityKhouribgaApplication {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         var context = SpringApplication.run(SmartCityKhouribgaApplication.class, args);
         FirebaseService firebaseService = context.getBean(FirebaseService.class);
         Bucket bucket = firebaseService.getBucket();
-
+        System.out.println(firebaseService.getFileUrl("User/Cv/20211212_160005_compress53.jpg"));
         /* get a blob with his path */
-        Blob blob = bucket.get("User/Cv/20211212_160005_compress53.jpg");
-        System.out.println(blob.signUrl(1000, TimeUnit.DAYS));
+//        Blob blob = bucket.get("User/Cv/20211212_160005_compress53.jpg");
+//        System.out.println(blob.signUrl(1000, TimeUnit.DAYS));
 //        UserService userService = context.getBean(UserService.class);
 //        JobOfferService offerService = context.getBean(JobOfferService.class);
 
