@@ -5,7 +5,6 @@ export const registerUser = createAsyncThunk(
     'auth/register',
     async ({name, surname, mail, password, cv, photo}, {rejectWithValue}) => {
         try {
-            console.log("register thunk")
             const formData = new FormData()
             formData.append('name', name)
             formData.append('surname', surname)
