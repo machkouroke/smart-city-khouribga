@@ -34,9 +34,6 @@ public class User {
     @NonNull
     private String mail;
 
-    @Column(name = "cv")
-    @NonNull
-    private String cv;
 
     @Column(name = "role")
     @NonNull
@@ -46,12 +43,14 @@ public class User {
     @NonNull
     private String pwd;
 
-    @Column(name = "photo")
-    @NonNull
-    private String photo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<UserOfferRelation> relatedOffers= new HashSet<>();
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public String picture_link() {
+        return "https://firebasestorage.googleapis.com/v0/b/smart-city-915d9.appspot.com/o/users%2F" + this.id + "?alt=media";
+    }
 }
