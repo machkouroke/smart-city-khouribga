@@ -14,7 +14,7 @@ public class UserPOJO {
 
     private String password;
 
-    private User getUser(UserRepository userRepository){
+    public User getUser(UserRepository userRepository){
         User user= userRepository.findByMail(getMail()).orElse(null);
         assert user!= null;
         return user;
