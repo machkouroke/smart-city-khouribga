@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class UserOfferRelationKeys implements Serializable {
