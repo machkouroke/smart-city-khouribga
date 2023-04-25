@@ -80,7 +80,7 @@ public class JobOfferController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<JobOffer> getAllOffers(){
         return offerService.findAll();
     }
