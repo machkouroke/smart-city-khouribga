@@ -17,7 +17,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ErrorMessage> handleFlightNotFound(
             BadCredentialsException e, WebRequest request) {
 
-        System.out.println(e);
+        e.printStackTrace();
 
         ErrorMessage body = new ErrorMessage(
                 HttpStatus.UNAUTHORIZED.value(),
