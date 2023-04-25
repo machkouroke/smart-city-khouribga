@@ -11,6 +11,7 @@ import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,10 +32,9 @@ public class JobOfferController {
 
 
     @PostMapping("/add")
-    public void addOffer(User details,
+    public void addOffer(@AuthenticationPrincipal User user,
                          @ModelAttribute OfferDTO dto) {
 
-        User user = details;
         dto.setPostedAt(new Date());
 
         JobOffer offer = offerService.save(offerService.convertToEntity(dto));
@@ -47,9 +47,8 @@ public class JobOfferController {
 
 
     @PostMapping("/reaction")
-    public void toggleReaction(User details,
+    public void toggleReaction(@AuthenticationPrincipal User user,
                                @RequestParam("id") Long id, @RequestParam("type") String type) {
-        User user = details;
         JobOffer offer = offerService.findById(id);
 
         UserOfferRelation uor = new UserOfferRelation(user, offer);
@@ -66,10 +65,8 @@ public class JobOfferController {
     }
 
     @PostMapping(value = "/delete/relation")
-    public ResponseEntity<Long> deleteRelations(User details,
+    public ResponseEntity<Long> deleteRelations(@AuthenticationPrincipal User user,
                                                 @RequestParam("id") Long id, @RequestParam("type") String type){
-
-        User user = details;
         JobOffer offer= offerService.findById(id);
 
         UserOfferRelation uor= new UserOfferRelation(user, offer);

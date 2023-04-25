@@ -38,9 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/offers/{type}")
-    public ResponseEntity<Set<JobOffer>> getRelatedOffers(User details,
+    public ResponseEntity<Set<JobOffer>> getRelatedOffers(@AuthenticationPrincipal User user,
                                           @PathVariable String type){
-        User user= details;
         return ResponseEntity.ok().body(userService.findOffersRelatedToUser(user.getId(), type));
     }
 
