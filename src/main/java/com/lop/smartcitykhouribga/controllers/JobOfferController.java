@@ -10,6 +10,8 @@ import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,10 +57,6 @@ public class JobOfferController {
         UserOfferRelation uor= new UserOfferRelation(user, offer);
         uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
 
-        UserOfferRelation uor1= new UserOfferRelation(user, offer);
-        uor1.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
-
-
         if(user.getRelatedOffers().stream().anyMatch(r->r.equals(uor))){
             userService.deleteRelation(uor);
             System.out.println("It contains");
@@ -67,6 +65,21 @@ public class JobOfferController {
             System.out.println("No");
         }
 
+    }
+
+    @PostMapping(value = "/delete/relation")
+    public ResponseEntity<Long> deleteRelations(@AuthenticationPrincipal UserDetailsImpl details,
+                                                @RequestParam("id") Long id, @RequestParam("type") String type){
+
+        User user = details.getUser(userRepository);
+        JobOffer offer= offerService.findById(id);
+
+        UserOfferRelation uor= new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
+
+        System.out.println("id "+uor.getId().getType());
+        userService.deleteRelation(uor);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -89,8 +102,10 @@ public class JobOfferController {
         return offerService.searchOffers(word);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteOffers(@PathVariable Long id){
-        offerService.deletebyId(id);
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<Long> deleteOffers(@RequestParam("id") Long id){
+        System.out.println("id"+id);
+        offerService.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
