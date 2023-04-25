@@ -1,8 +1,10 @@
 package com.lop.smartcitykhouribga.security;
 
+import com.lop.smartcitykhouribga.models.Enum.Role;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,8 +41,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
         http.authorizeRequests()
                 .antMatchers("/auth/login", "/users/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/offers").hasRole(Role.RECRUITER.name())
                 .anyRequest().authenticated();
         http.exceptionHandling()
                 .authenticationEntryPoint(
