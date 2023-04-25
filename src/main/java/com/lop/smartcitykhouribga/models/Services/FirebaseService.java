@@ -1,17 +1,17 @@
 package com.lop.smartcitykhouribga.models.Services;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
-
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.stereotype.Service;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -44,9 +44,15 @@ public class FirebaseService {
         return bucket;
     }
 
-    public void uploadFile(Path fileName, String dstPath) throws FileNotFoundException {
+    public void uploadFile(Path fileName, String dstPath) throws IOException {
+        /* Create automatocally whith the corresponding file name type */
         bucket.create(String.format("%s/%s", dstPath, fileName.getFileName()),
-                new FileInputStream(fileName.toFile()), "application/octet-stream");
+                new FileInputStream(fileName.toFile()), getLocalFileContentType(fileName));
+    }
+
+    public String getLocalFileContentType(Path filePath) throws IOException {
+        String contentType = Files.probeContentType(filePath);
+        return contentType == null ? "application/octet-stream" : contentType;
     }
 
     public String getFileUrl(String filePath) {
