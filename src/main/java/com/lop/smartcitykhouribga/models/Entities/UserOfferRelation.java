@@ -40,4 +40,8 @@ public class UserOfferRelation {
         return Objects.equals(id, that.id) && user.equals(that.user) && offer.equals(that.offer);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, offer);
+    }
 }
