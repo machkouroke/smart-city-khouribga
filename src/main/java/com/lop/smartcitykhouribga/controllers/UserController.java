@@ -2,7 +2,6 @@ package com.lop.smartcitykhouribga.controllers;
 
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
-import com.lop.smartcitykhouribga.models.Entities.UserDetailsImpl;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,9 @@ public class UserController {
     }
 
     @GetMapping("/offers/{type}")
-    public ResponseEntity<Set<JobOffer>> getRelatedOffers(@AuthenticationPrincipal UserDetailsImpl details,
+    public ResponseEntity<Set<JobOffer>> getRelatedOffers(User details,
                                           @PathVariable String type){
-        User user= details.getUser(userRepository);
+        User user= details;
         return ResponseEntity.ok().body(userService.findOffersRelatedToUser(user.getId(), type));
     }
 
