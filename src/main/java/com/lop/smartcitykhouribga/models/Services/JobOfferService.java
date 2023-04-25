@@ -39,7 +39,7 @@ public class JobOfferService {
         return this.companyRepository.save(e);
     }
 
-    public void deletebyId(Long id){
+    public void deleteById(Long id) throws IllegalArgumentException{
         JobOffer offer= this.jobOfferRepository.findById(id).orElse(null);
         if(offer == null){
             throw new IndexOutOfBoundsException();

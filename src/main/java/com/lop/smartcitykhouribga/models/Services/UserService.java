@@ -104,5 +104,14 @@ public class UserService {
         System.out.println("Appel de la fonction de suppression");
         relationRepository.delete(uor);
     }
+    public void deleteRelationById(UserOfferRelationKeys key){
+        System.out.println("Appel de la fonction de suppression par id");
+        UserOfferRelation uor= relationRepository.findById(key).orElse(null);
+        if (uor == null){
+            throw  new IndexOutOfBoundsException();
+        }
+        System.out.println("Recherche "+uor.getId().getType());
+        relationRepository.delete(uor);
+    }
 
 }
