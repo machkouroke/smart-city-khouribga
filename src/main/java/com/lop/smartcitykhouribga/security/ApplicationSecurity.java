@@ -24,6 +24,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
+    @Autowired
+    private DelegatedAuthenticationEntryPoint authenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(mail -> userRepo.findByMail(mail).orElseThrow(
@@ -46,13 +49,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login", "/users/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/offers").hasRole(Role.RECRUITER.name())
                 .anyRequest().authenticated();
-        http.exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> response.sendError(
-                                HttpServletResponse.SC_UNAUTHORIZED,
-                                ex.getMessage()
-                        )
-                );
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }

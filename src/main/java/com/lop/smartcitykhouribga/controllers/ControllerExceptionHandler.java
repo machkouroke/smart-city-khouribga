@@ -1,6 +1,7 @@
 package com.lop.smartcitykhouribga.controllers;
 
 import com.lop.smartcitykhouribga.models.Entities.DTO.ErrorMessage;
+import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,12 +13,13 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+    /* Catch mutliple exceptions */
 
-    @ExceptionHandler(BadCredentialsException.class)
+    @ExceptionHandler({BadCredentialsException.class, MalformedJwtException.class})
     public ResponseEntity<ErrorMessage> handleFlightNotFound(
-            BadCredentialsException e, WebRequest request) {
+            Exception e,
+            WebRequest request) {
 
-        e.printStackTrace();
 
         ErrorMessage body = new ErrorMessage(
                 HttpStatus.UNAUTHORIZED.value(),
@@ -29,4 +31,5 @@ public class ControllerExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
+
 }
