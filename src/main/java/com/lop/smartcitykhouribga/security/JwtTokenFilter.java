@@ -1,6 +1,7 @@
 package com.lop.smartcitykhouribga.security;
 
 import com.lop.smartcitykhouribga.models.Entities.User;
+import com.lop.smartcitykhouribga.models.Enum.Role;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,6 +52,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         user.setId(Long.parseLong(jwtSubject[0]));
         user.setMail(jwtSubject[1]);
+        user.setRole(Role.valueOf(jwtSubject[2].split("_")[1]));
+
 
         return user;
     }
@@ -64,9 +67,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
      */
     private void setAuthenticationContext(String token, HttpServletRequest request) {
         UserDetails userDetails = getUserDetails(token);
+        System.out.println(userDetails);
 
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
