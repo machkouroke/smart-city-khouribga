@@ -10,7 +10,6 @@ import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,25 +39,34 @@ public class JobOfferController {
 
         JobOffer offer= offerService.save(offerService.convertToEntity(dto));
 
-        userService.saveRelation(user, offer, "posted");
+
+        UserOfferRelation uor= new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),"posted"));
+        userService.saveRelation(uor);
     }
 
-    @PostMapping("/like")
-    public void likeOffer(@AuthenticationPrincipal UserDetailsImpl details,
-                          @RequestParam("id") Long id){
+
+    @PostMapping("/reaction")
+    public void toggleReaction(@AuthenticationPrincipal UserDetailsImpl details,
+                          @RequestParam("id") Long id, @RequestParam("type") String type){
         User user = details.getUser(userRepository);
         JobOffer offer= offerService.findById(id);
 
-        userService.saveRelation(user, offer, "liked");
-    }
+        UserOfferRelation uor= new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
 
-    @PostMapping("/postulate")
-    public void postulateOffer(@AuthenticationPrincipal UserDetailsImpl details,
-                          @RequestParam("id") Long id){
-        User user = details.getUser(userRepository);
-        JobOffer offer= offerService.findById(id);
+        UserOfferRelation uor1= new UserOfferRelation(user, offer);
+        uor1.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
 
-        userService.saveRelation(user, offer, "postulated");
+
+        if(user.getRelatedOffers().stream().anyMatch(r->r.equals(uor))){
+            userService.deleteRelation(uor);
+            System.out.println("It contains");
+        }else {
+            userService.saveRelation(uor);
+            System.out.println("No");
+        }
+
     }
 
     @GetMapping("/")

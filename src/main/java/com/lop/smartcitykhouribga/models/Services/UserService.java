@@ -61,9 +61,7 @@ public class UserService {
         save(user);
     }
 
-    public UserOfferRelation saveRelation(User user, JobOffer offer, String type) {
-        UserOfferRelation uor= new UserOfferRelation(user, offer);
-        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
+    public UserOfferRelation saveRelation(UserOfferRelation uor) {
 
         return this.relationRepository.save(uor);
     }
@@ -103,5 +101,9 @@ public class UserService {
     }
 
 
+    public void deleteRelation(UserOfferRelation uor){
+        System.out.println("Appel de la fonction de suppression");
+        relationRepository.delete(uor);
+    }
 
 }
