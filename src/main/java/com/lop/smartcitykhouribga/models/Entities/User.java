@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @NonNull
     private String surname;
 
-    @Column(name = "mail")
+    @Column(name = "mail", unique = true)
     @NonNull
     private String mail;
 
