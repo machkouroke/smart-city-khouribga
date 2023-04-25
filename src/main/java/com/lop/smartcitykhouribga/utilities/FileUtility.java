@@ -38,10 +38,11 @@ public class FileUtility {
         if (validateFiles(cv)) {
 
             String extension = FilenameUtils.getExtension(cv.getOriginalFilename());
-            String cvPathname = System.getProperty("user.dir")+ File.separator+ path + File.separator + user.getName() + "Cv." + extension;
+            String cvPathname = System.getProperty("user.dir")+ File.separator+ path + File.separator + user.getMail() + "Cv." + extension;
             System.out.println("CVPathname: " + cvPathname );
             cv.transferTo(new File(cvPathname));
             firebaseService.uploadFile(Path.of(cvPathname), "User/Cv");
+            Files.delete(Path.of(cvPathname));
         }
 
     }
@@ -55,11 +56,12 @@ public class FileUtility {
         }
         if (validateFiles(photo)) {
             String extension = FilenameUtils.getExtension(photo.getOriginalFilename());
-            String photoPathname = System.getProperty("user.dir")+ File.separator+ path + File.separator + user.getName() + "Picture." + extension;
+            String photoPathname = System.getProperty("user.dir")+ File.separator+ path + File.separator + user.getMail() + "Picture." + extension;
             System.out.println(photoPathname);
             photo.transferTo(new File(photoPathname));
 
             firebaseService.uploadFile(Path.of(photoPathname), "User/Pictures");
+            Files.delete(Path.of(photoPathname));
         }
     }
 
