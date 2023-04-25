@@ -8,6 +8,7 @@ import com.lop.smartcitykhouribga.models.Repositories.RelationRepository;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,26 +26,28 @@ public class UserService {
 
     private final FirebaseService firebaseService;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
-    public UserService(UserRepository userRepository, JobOfferRepository jobOfferRepository,
-                       RelationRepository relationRepository, FirebaseService firebaseService) {
+    public UserService(UserRepository userRepository,
+                       JobOfferRepository jobOfferRepository,
+                       RelationRepository relationRepository,
+                       FirebaseService firebaseService, PasswordEncoder encoder) {
 
         this.userRepository = userRepository;
         this.relationRepository = relationRepository;
         this.firebaseService = firebaseService;
+        this.encoder = encoder;
     }
 
     public User save(User toSave) {
-        User newUser = this.userRepository.save(toSave);
-        return newUser;
+        return this.userRepository.save(toSave);
     }
 
     public void register(User user, MultipartFile cv, MultipartFile photo) throws IOException {
         uploadUserCV(user, cv);
         uploadUserPhoto(user, photo);
-
-
-
+        user.setPwd(encoder.encode(user.getPwd()));
         save(user);
     }
 

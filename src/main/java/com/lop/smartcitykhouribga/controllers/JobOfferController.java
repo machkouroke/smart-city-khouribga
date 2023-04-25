@@ -4,7 +4,6 @@ import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class JobOfferController {
     @Autowired
     private JobOfferService offerService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<JobOffer> getAllOffers(){
         return offerService.findAll();
     }

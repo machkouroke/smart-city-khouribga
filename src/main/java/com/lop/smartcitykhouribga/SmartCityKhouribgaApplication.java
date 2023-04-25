@@ -12,14 +12,16 @@ import java.io.IOException;
 
 @SpringBootApplication
 public class SmartCityKhouribgaApplication {
-    @Bean
-    public PasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
     public static void main(String[] args) throws IOException {

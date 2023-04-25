@@ -1,7 +1,7 @@
 package com.lop.smartcitykhouribga.models.Keys;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import lombok.*;
 
 import java.io.Serializable;
@@ -9,8 +9,7 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-@EqualsAndHashCode
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 public class UserOfferRelationKeys implements Serializable {
 
