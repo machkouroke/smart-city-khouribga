@@ -43,7 +43,7 @@ public class UserService {
         uploadUserCV(user, cv);
         uploadUserPhoto(user, photo);
 
-        user.setRole("applicant");
+
 
         save(user);
     }
