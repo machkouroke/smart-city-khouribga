@@ -3,16 +3,12 @@ package com.lop.smartcitykhouribga.controllers;
 import com.lop.smartcitykhouribga.models.Entities.DTO.OfferDTO;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
-import com.lop.smartcitykhouribga.models.Entities.UserDetailsImpl;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
 import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -33,29 +29,29 @@ public class JobOfferController {
 
 
     @PostMapping("/add")
-    public void addOffer(@AuthenticationPrincipal UserDetailsImpl details,
-                         @ModelAttribute OfferDTO dto){
+    public void addOffer(User details,
+                         @ModelAttribute OfferDTO dto) {
 
-        User user = details.getUser(userRepository);
+        User user = details;
         dto.setPostedAt(new Date());
 
-        JobOffer offer= offerService.save(offerService.convertToEntity(dto));
+        JobOffer offer = offerService.save(offerService.convertToEntity(dto));
 
 
-        UserOfferRelation uor= new UserOfferRelation(user, offer);
-        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),"posted"));
+        UserOfferRelation uor = new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(), offer.getId(), "posted"));
         userService.saveRelation(uor);
     }
 
 
     @PostMapping("/reaction")
-    public void toggleReaction(@AuthenticationPrincipal UserDetailsImpl details,
-                          @RequestParam("id") Long id, @RequestParam("type") String type){
-        User user = details.getUser(userRepository);
-        JobOffer offer= offerService.findById(id);
+    public void toggleReaction(User details,
+                               @RequestParam("id") Long id, @RequestParam("type") String type) {
+        User user = details;
+        JobOffer offer = offerService.findById(id);
 
-        UserOfferRelation uor= new UserOfferRelation(user, offer);
-        uor.setId(new UserOfferRelationKeys(user.getId(),offer.getId(),type));
+        UserOfferRelation uor = new UserOfferRelation(user, offer);
+        uor.setId(new UserOfferRelationKeys(user.getId(), offer.getId(), type));
 
         if(user.getRelatedOffers().stream().anyMatch(r->r.equals(uor))){
             userService.deleteRelation(uor);
@@ -68,10 +64,10 @@ public class JobOfferController {
     }
 
     @PostMapping(value = "/delete/relation")
-    public ResponseEntity<Long> deleteRelations(@AuthenticationPrincipal UserDetailsImpl details,
+    public ResponseEntity<Long> deleteRelations(User details,
                                                 @RequestParam("id") Long id, @RequestParam("type") String type){
 
-        User user = details.getUser(userRepository);
+        User user = details;
         JobOffer offer= offerService.findById(id);
 
         UserOfferRelation uor= new UserOfferRelation(user, offer);

@@ -56,7 +56,6 @@ public class UserService {
         fileUtility.saveProfilePicture(user, photo);
 
         user.setPwd(encoder.encode(user.getPwd()));
-        user.setRole("applicant");
 
         save(user);
     }

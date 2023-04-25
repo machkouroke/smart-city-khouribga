@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.Date;
 
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Getter
 @Setter

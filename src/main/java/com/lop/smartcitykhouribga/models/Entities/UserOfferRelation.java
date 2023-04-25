@@ -2,14 +2,14 @@ package com.lop.smartcitykhouribga.models.Entities;
 
 
 import com.lop.smartcitykhouribga.models.Keys.UserOfferRelationKeys;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @ToString
 @Entity
