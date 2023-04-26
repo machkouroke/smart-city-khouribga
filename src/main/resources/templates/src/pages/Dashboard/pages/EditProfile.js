@@ -4,8 +4,8 @@ import {NavBar} from "../components/NavBar";
 import React from "react";
 import {UserEditBlock} from "../components/UserEditBlock";
 
-export function EditProfile(props) {
-    console.log(props.data);
+export function EditProfile({user}) {
+
     return (
         <div className={"dashboard"}>
 
@@ -13,12 +13,12 @@ export function EditProfile(props) {
 
             <div className="container">
                 <div className="row">
-                    <LeftSidebar activeNav={"/edit_profile"}
+                    <LeftSidebar activeNav={"/edit_profile"} user={user}
                     />
                     <div className="col-lg-6 col-12 timeline">
 
                         {/* Boucle sur les posts */}
-                        <UserEditBlock />
+                        <UserEditBlock user={user} />
 
                     </div>
 

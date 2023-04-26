@@ -1,19 +1,18 @@
 import {useDispatch, useSelector} from "react-redux";
-import {Route} from "react-router-dom";
 import React from "react";
 import {useGetUserDetailsQuery} from "../services/authService";
 import {Loader} from "../components/Loader/Loader";
 import {logout} from "../slices/LoginPage/Auth";
 import LogRocket from 'logrocket';
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 
-const LoginRequiredRoute = ({component, ...rest}) => {
+const LoginRequiredRoute = ({children}) => {
 
     const {data, isFetching, error} = useGetUserDetailsQuery('userDetails', {
         // perform a refetch every 15mins
         pollingInterval: 900000
     })
-    const navigate = useNavigate();
+
     const success = useSelector(state => state.authentication.success)
     const dispatch = useDispatch()
     if (isFetching) {
@@ -23,7 +22,7 @@ const LoginRequiredRoute = ({component, ...rest}) => {
         console.log("success", success)
         localStorage.getItem('userToken') && !success && localStorage.removeItem('userToken') && dispatch(logout())
         localStorage.removeItem('isManager')
-        return navigate('/login')
+        return <Navigate to={"/login"}/>
     } else {
         const user = data.data
         localStorage.setItem('isManager', `${user.mail === 'machkour20.mo1@gmail.com'}`)
@@ -32,15 +31,10 @@ const LoginRequiredRoute = ({component, ...rest}) => {
             email: user.surname,
 
         });
-        const createComponent = (props) => {
-            return React.createElement(component, {
-                ...props,
-                user
-            })
+        const Element = (props) => {
+            return React.cloneElement(children, {...props, user: user})
         }
-        return (
-            <Route {...rest} element={createComponent()}/>
-        );
+        return <Element />
     }
 
 };
