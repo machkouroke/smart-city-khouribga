@@ -5,8 +5,10 @@ import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
@@ -15,19 +17,22 @@ import java.time.LocalDateTime;
 public class ControllerExceptionHandler {
     /* Catch mutliple exceptions */
 
-    @ExceptionHandler({BadCredentialsException.class, MalformedJwtException.class})
+    @ExceptionHandler({AuthenticationException.class})
+    @ResponseBody
     public ResponseEntity<ErrorMessage> handleFlightNotFound(
             Exception e,
             WebRequest request) {
+
 
 
         ErrorMessage body = new ErrorMessage(
                 HttpStatus.UNAUTHORIZED.value(),
                 LocalDateTime.now(),
                 e.getMessage(),
-                e.getClass().getName()
+                e.getLocalizedMessage()
         );
 
+        System.out.println(body);
 
         return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }

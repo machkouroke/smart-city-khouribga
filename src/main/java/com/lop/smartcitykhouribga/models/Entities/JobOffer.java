@@ -43,9 +43,10 @@ public class JobOffer {
     private Date postedAt;
 
     @ManyToOne
+    @ToString.Exclude
     private Entreprise entreprise;
 
-    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "offer",  orphanRemoval = true)
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<UserOfferRelation> relatedUsers= new HashSet<>();

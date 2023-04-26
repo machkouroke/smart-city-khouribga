@@ -27,7 +27,7 @@
         height: 2rem;
         margin: auto;
         border-radius: 50%;
-        border-left: 4px solid map-get($theme-colors, "primary");
+        border-left: 4px solid $primary;
         border-bottom: 4px solid transparent;
         animation: rotation 0.5s linear infinite reverse;
     }

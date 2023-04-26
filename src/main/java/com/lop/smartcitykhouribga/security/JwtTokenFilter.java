@@ -52,7 +52,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         user.setId(Long.parseLong(jwtSubject[0]));
         user.setMail(jwtSubject[1]);
-        System.out.println(jwtSubject[2]);
         user.setRole(Role.valueOf(jwtSubject[2]));
 
 
@@ -85,14 +84,18 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         if (!hasAuthorizationBearer(request)) {
+            /* Customize AuthenticationException */
+
+
             filterChain.doFilter(request, response);
-            /* Add error message */
+
             return;
         }
 
         String token = getAccessToken(request);
 
         if (!jwtUtil.validateAccessToken(token)) {
+
 
             filterChain.doFilter(request, response);
 

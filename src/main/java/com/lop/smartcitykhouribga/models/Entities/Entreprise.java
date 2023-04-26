@@ -29,5 +29,6 @@ public class Entreprise {
 
     @OneToMany(mappedBy = "entreprise")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
     private List<JobOffer> offers;
 }

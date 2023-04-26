@@ -50,7 +50,7 @@ public class User implements UserDetails {
     private String pwd;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",  orphanRemoval = true)
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<UserOfferRelation> relatedOffers = new HashSet<>();
