@@ -3,18 +3,18 @@ package com.lop.smartcitykhouribga.controllers;
 import com.lop.smartcitykhouribga.models.Entities.DTO.AuthRequest;
 import com.lop.smartcitykhouribga.models.Entities.DTO.AuthResponse;
 import com.lop.smartcitykhouribga.models.Entities.User;
+import com.lop.smartcitykhouribga.models.Services.UserService;
 import com.lop.smartcitykhouribga.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,8 +24,12 @@ public class AuthController {
     @Autowired
     JwtTokenUtil jwtUtil;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
+        System.out.println(request);
 
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -37,6 +41,13 @@ public class AuthController {
         AuthResponse response = new AuthResponse(user.getMail(), accessToken);
 
         return ResponseEntity.ok().body(response);
-
     }
+
+    @GetMapping("/status")
+    public ResponseEntity<Map<String, Object>> status(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(Map.of("success", true, "data", userService.findById(user.getId())
+        ));
+    }
+
+
 }
