@@ -2,7 +2,7 @@ import {Menu} from "./Menu";
 
 const candy = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fcandyahogoudedji%40gmail.com.png?alt=media&token=6f132115-1634-4ec7-ab7d-91fbccbc1b2f";
 
-export function LeftSidebar({activeNav}) {
+export function LeftSidebar({activeNav, user}) {
     const navElement = [
         {
             route: "/",
@@ -30,7 +30,7 @@ export function LeftSidebar({activeNav}) {
                         alt="profile picture"
                     />
                     <div>
-                        <h6>Machkour Oke</h6>
+                        <h6>{user.name} {user.surname}</h6>
                         <span
                         >Elève ingénieur</span
                         >

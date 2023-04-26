@@ -1,6 +1,17 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {logout} from "../../../slices/LoginPage/Auth"
+import {useNavigate} from "react-router-dom";
+
 
 export function NavBar() {
+    const dispatch = useDispatch();
+    const navigator = useNavigate()
+
+    const logoutUser = () => {
+        dispatch(logout());
+        navigator('/login', {replace: true})
+    }
 
     return (
         <React.Fragment>
@@ -46,8 +57,7 @@ export function NavBar() {
                                     <div className="col-lg-4 col-12">
                                         <ul className="navbar-nav">
                                             <li>
-                                                <a href="templates/src/components#"
-                                                >Se déconnecter<i
+                                                <a onClick={logoutUser}>Se déconnecter<i
                                                     className="fas fa-sign-out-alt"
                                                 ></i
                                                 ></a>

@@ -26,7 +26,7 @@
 .file-input {
   @extend .text-input;
 
-  ::file-selector-button {
+  &::file-selector-button {
     background-color: $clr-accent;
     color: $clr-background;
     border: none;

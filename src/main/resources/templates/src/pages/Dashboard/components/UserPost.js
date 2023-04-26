@@ -1,9 +1,8 @@
 import style from "../style/scss/tailwind.module.scss"
-import PropTypes from 'prop-types';
 
-export function UserPost(props) {
-    const offer =
-       props.offer
+
+export function UserPost({offer}) {
+
 
     return (
         <div>
@@ -65,6 +64,3 @@ export function UserPost(props) {
     )
 }
 
-UserPost.propTypes = {
-    offer: PropTypes.object.isRequired
-}
