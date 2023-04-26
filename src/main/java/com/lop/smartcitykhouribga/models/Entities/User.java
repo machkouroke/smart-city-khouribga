@@ -2,10 +2,15 @@ package com.lop.smartcitykhouribga.models.Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lop.smartcitykhouribga.models.Enum.Role;
+import com.lop.smartcitykhouribga.models.Services.FirebaseService;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.actuate.beans.BeansEndpoint;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -18,9 +23,12 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @ToString
-@Entity
+@Entity @Configurable
 @Table(name = "users")
 public class User implements UserDetails {
+
+    @Autowired @Transient
+    FirebaseService firebaseService;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -95,5 +103,17 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public String getCvLink(){
+        String cvPath= "/User/Cv/"+ this.getMail()+"."+ this.getCvExtension();
+        return firebaseService.getFileUrl(cvPath);
+    }
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public String getPictureLink(){
+        String picPath= "/User/Pictures/"+ this.getMail()+"."+ this.getPicExtension();
+        return firebaseService.getFileUrl(picPath);
     }
 }
