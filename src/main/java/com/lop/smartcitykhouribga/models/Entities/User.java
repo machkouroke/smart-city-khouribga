@@ -49,6 +49,12 @@ public class User implements UserDetails {
     @NonNull
     private String pwd;
 
+    @Column(name="cv_extensinon") @NonNull
+    private String cvExtension;
+
+    @Column(name = "pic_extension") @NonNull
+    private String picExtension;
+
 
     @OneToMany(mappedBy = "user",  orphanRemoval = true)
     @ToString.Exclude

@@ -42,6 +42,7 @@ public class FileUtility {
             System.out.println("CVPathname: " + cvPathname );
             cv.transferTo(new File(cvPathname));
             firebaseService.uploadFile(Path.of(cvPathname), "User/Cv");
+            user.setCvExtension(extension);
             Files.delete(Path.of(cvPathname));
         }
 
@@ -61,6 +62,7 @@ public class FileUtility {
             photo.transferTo(new File(photoPathname));
 
             firebaseService.uploadFile(Path.of(photoPathname), "User/Pictures");
+            user.setPicExtension(extension);
             Files.delete(Path.of(photoPathname));
         }
     }
