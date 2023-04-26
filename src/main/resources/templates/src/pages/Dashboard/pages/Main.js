@@ -9,7 +9,7 @@ import React from "react";
 
 const pierre = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fe.bertried%40gmail.com.png?alt=media&token=4732a887-bf98-4c3a-b865-20bda05d7add";
 
-export function Main(props) {
+export function Main({data, user}) {
     const offers = [
         {
             picture: pierre,
@@ -39,10 +39,9 @@ export function Main(props) {
 
             <div className="container">
                 <div className="row">
-                    <LeftSidebar activeNav={props.data === "all" ? "/" : "/applied_offer"
-                    }/>
+                    <LeftSidebar activeNav={data === "all" ? "/" : "/applied_offer"} user={user}/>
                     <div className="col-lg-6 col-12 timeline">
-                        <CreatePost/>
+                        {data === 'all' &&  <CreatePost/>}
                         {/* Boucle sur les posts */}
                         {
                             offers.map(
