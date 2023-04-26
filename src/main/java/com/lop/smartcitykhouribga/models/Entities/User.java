@@ -23,12 +23,10 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @ToString
-@Entity @Configurable
+@Entity
 @Table(name = "users")
 public class User implements UserDetails {
 
-    @Autowired @Transient
-    FirebaseService firebaseService;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -105,15 +103,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public String getCvLink(){
-        String cvPath= "/User/Cv/"+ this.getMail()+"."+ this.getCvExtension();
-        return firebaseService.getFileUrl(cvPath);
-    }
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public String getPictureLink(){
-        String picPath= "/User/Pictures/"+ this.getMail()+"."+ this.getPicExtension();
-        return firebaseService.getFileUrl(picPath);
-    }
 }
