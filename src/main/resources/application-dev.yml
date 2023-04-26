@@ -1,0 +1,5 @@
+spring:
+  messages: Hello Youtube
+
+server:
+  port: 8081

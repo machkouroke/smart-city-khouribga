@@ -69,7 +69,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter   {
                 .antMatchers(HttpMethod.POST, "/offers").hasRole(Role.RECRUITER.name())
                 .anyRequest().authenticated();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-
+        http.cors();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }

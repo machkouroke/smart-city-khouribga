@@ -55,6 +55,10 @@ public class FirebaseService {
         return contentType == null ? "application/octet-stream" : contentType;
     }
 
+    /**
+     * @param filePath the path of the file in the bucket
+     * @return the url of the file
+     */
     public String getFileUrl(String filePath) {
         return bucket.get(filePath).signUrl(1000, TimeUnit.DAYS).toString();
     }
