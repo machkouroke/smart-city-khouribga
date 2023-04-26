@@ -24,11 +24,14 @@ public class JobOfferService {
 
     private final ModelMapper modelMapper;
 
+    private final FirebaseService firebaseService;
+
     @Autowired
-    public JobOfferService(JobOfferRepository jobOfferRepository, CompanyRepository companyRepository, ModelMapper modelMapper) {
+    public JobOfferService(JobOfferRepository jobOfferRepository, CompanyRepository companyRepository, ModelMapper modelMapper, FirebaseService firebaseService) {
         this.jobOfferRepository = jobOfferRepository;
         this.companyRepository = companyRepository;
         this.modelMapper = modelMapper;
+        this.firebaseService = firebaseService;
     }
 
     public JobOffer save(JobOffer toSave){
@@ -87,9 +90,14 @@ public class JobOfferService {
     }
 
     public OfferDTO convertToDTO(JobOffer offer){
-        OfferDTO dto= modelMapper.map(offer, OfferDTO.class);
-        dto.setEnterpriseName(offer.getEntreprise().getName());
+        OfferDTO offerDTO= modelMapper.map(offer, OfferDTO.class);
 
-        return dto;
+        User user= findUsersRelatedToOffer(offer.getId(), "posted").stream().findFirst().get();
+        String picPath= "User/Pictures/"+ user.getMail()+"Picture."+ user.getPicExtension();
+        offerDTO.setPicture(firebaseService.getFileUrl(picPath));
+
+        offerDTO.setEnterpriseName(offer.getEntreprise().getName());
+
+        return offerDTO;
     }
 }

@@ -45,7 +45,7 @@ public class JobOfferController {
     }
 
     @PostMapping("/add")
-    public void addOffer(@AuthenticationPrincipal User details,
+    public ResponseEntity<Map<String, Object>> addOffer(@AuthenticationPrincipal User details,
                          @ModelAttribute OfferDTO dto) {
 
         User user = userService.findById(details.getId());
@@ -57,6 +57,7 @@ public class JobOfferController {
         UserOfferRelation uor = new UserOfferRelation(user, offer);
         uor.setId(new UserOfferRelationKeys(user.getId(), offer.getId(), "posted"));
         userService.saveRelation(uor);
+        return ResponseEntity.ok(Map.of("success", true, "operation", "offer added"));
     }
 
 
@@ -91,18 +92,20 @@ public class JobOfferController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<JobOffer>> getAllOffers() {
-        return new ResponseEntity<>(offerService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getAllOffers() {
+        return ResponseEntity.ok(Map.of("success", true, "data", offerService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OfferDTO> getOffer(@PathVariable Long id) {
-        return new ResponseEntity<>(offerService.convertToDTO(offerService.findById(id)), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getOffer(@PathVariable Long id) {
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.convertToDTO(offerService.findById(id))));
     }
 
     @GetMapping("/{id}/users/{type}")
-    public Set<User> getRelatedOffers(@PathVariable Long id, @PathVariable String type) {
-        return offerService.findUsersRelatedToOffer(id, type);
+    public ResponseEntity<Map<String, Object>> getRelatedOffers(@PathVariable Long id, @PathVariable String type) {
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.findUsersRelatedToOffer(id, type)));
     }
 
     @GetMapping("/search/{word}")
