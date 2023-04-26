@@ -3,6 +3,7 @@ package com.lop.smartcitykhouribga.models.Entities.DTO;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @ToString
 @NoArgsConstructor(force = true)
@@ -23,5 +24,11 @@ public class OfferDTO {
     private Date postedAt;
     @NonNull
     private String enterpriseName;
+    @NonNull
+    private String contact;
+
+    private List<String> tag;
+
+    private String picture;
 
 }

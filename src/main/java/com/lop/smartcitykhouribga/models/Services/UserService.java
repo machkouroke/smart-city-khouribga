@@ -1,5 +1,6 @@
 package com.lop.smartcitykhouribga.models.Services;
 
+import com.lop.smartcitykhouribga.models.Entities.DTO.UserDTO;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Entities.UserOfferRelation;
@@ -8,6 +9,7 @@ import com.lop.smartcitykhouribga.models.Repositories.JobOfferRepository;
 import com.lop.smartcitykhouribga.models.Repositories.RelationRepository;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.utilities.FileUtility;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final RelationRepository relationRepository;
 
+    private final ModelMapper modelMapper;
+
     private final FirebaseService firebaseService;
 
     private final FileUtility fileUtility;
@@ -38,12 +42,14 @@ public class UserService {
                        JobOfferRepository jobOfferRepository,
                        PasswordEncoder encoder,
                        RelationRepository relationRepository,
+                       ModelMapper modelMapper,
                        FirebaseService firebaseService,
                        FileUtility fileUtility) {
 
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.relationRepository = relationRepository;
+        this.modelMapper = modelMapper;
         this.firebaseService = firebaseService;
         this.fileUtility = fileUtility;
     }
@@ -116,6 +122,22 @@ public class UserService {
         }
         System.out.println("Recherche "+uor.getId().getType());
         relationRepository.delete(uor);
+    }
+
+    public UserDTO convertToDTO(User user){
+        UserDTO dto= modelMapper.map(user, UserDTO.class);
+        System.out.println(dto);
+        String picPath= "User/Pictures/"+ dto.getMail()+"Picture."+ user.getPicExtension();
+        String cvPath= "User/Cv/"+ dto.getMail()+"Cv."+ user.getCvExtension();
+        dto.setPicLink(firebaseService.getFileUrl(picPath));
+        dto.setCvLink(firebaseService.getFileUrl(cvPath));
+
+        return  dto;
+    }
+
+    public User convertToUser(UserDTO dto){
+
+        return modelMapper.map(dto, User.class);
     }
 
 }

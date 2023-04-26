@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -41,6 +42,14 @@ public class JobOffer {
     @Column(name = "postedAt")
     @NonNull
     private Date postedAt;
+
+    @Column(name = "contact")
+    @NonNull
+    private String contact;
+
+    @ElementCollection
+    @CollectionTable(name = "tags")
+    private List<String> tag;
 
     @ManyToOne
     @ToString.Exclude

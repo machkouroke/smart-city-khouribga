@@ -45,10 +45,10 @@ public class JobOfferController {
     }
 
     @PostMapping("/add")
-    public void addOffer(User details,
+    public ResponseEntity<Map<String, Object>> addOffer(@AuthenticationPrincipal User details,
                          @ModelAttribute OfferDTO dto) {
 
-        User user = details;
+        User user = userService.findById(details.getId());
         dto.setPostedAt(new Date());
 
         JobOffer offer = offerService.save(offerService.convertToEntity(dto));
@@ -57,6 +57,7 @@ public class JobOfferController {
         UserOfferRelation uor = new UserOfferRelation(user, offer);
         uor.setId(new UserOfferRelationKeys(user.getId(), offer.getId(), "posted"));
         userService.saveRelation(uor);
+        return ResponseEntity.ok(Map.of("success", true, "operation", "offer added"));
     }
 
 
@@ -91,29 +92,31 @@ public class JobOfferController {
     }
 
     @GetMapping("")
-    public List<JobOffer> getAllOffers() {
-        return offerService.findAll();
+    public ResponseEntity<Map<String, Object>> getAllOffers() {
+        return ResponseEntity.ok(Map.of("success", true, "data", offerService.findAll()));
     }
 
     @GetMapping("/{id}")
-    public JobOffer getOffer(@PathVariable Long id) {
-        return offerService.findById(id);
+    public ResponseEntity<Map<String, Object>> getOffer(@PathVariable Long id) {
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.convertToDTO(offerService.findById(id))));
     }
 
     @GetMapping("/{id}/users/{type}")
-    public Set<User> getRelatedOffers(@PathVariable Long id, @PathVariable String type) {
-        return offerService.findUsersRelatedToOffer(id, type);
+    public ResponseEntity<Map<String, Object>> getRelatedOffers(@PathVariable Long id, @PathVariable String type) {
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.findUsersRelatedToOffer(id, type)));
     }
 
     @GetMapping("/search/{word}")
-    public List<JobOffer> search(@PathVariable String word) {
-        return offerService.searchOffers(word);
+    public ResponseEntity<List<JobOffer>> search(@PathVariable String word) {
+        return new ResponseEntity<>(offerService.searchOffers(word), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete")
-    public ResponseEntity<Long> deleteOffers(@RequestParam("id") Long id) {
+    public ResponseEntity<String> deleteOffers(@RequestParam("id") Long id) {
         System.out.println("id" + id);
         offerService.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>("Offer deleted", HttpStatus.OK);
     }
 }

@@ -2,10 +2,15 @@ package com.lop.smartcitykhouribga.models.Entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lop.smartcitykhouribga.models.Enum.Role;
+import com.lop.smartcitykhouribga.models.Services.FirebaseService;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.actuate.beans.BeansEndpoint;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -22,6 +27,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -35,7 +41,7 @@ public class User implements UserDetails {
     @NonNull
     private String surname;
 
-    @Column(name = "mail")
+    @Column(name = "mail", unique = true)
     @NonNull
     private String mail;
 
@@ -48,6 +54,12 @@ public class User implements UserDetails {
     @Column(name = "password")
     @NonNull
     private String pwd;
+
+    @Column(name="cv_extensinon") @NonNull
+    private String cvExtension;
+
+    @Column(name = "pic_extension") @NonNull
+    private String picExtension;
 
 
     @OneToMany(mappedBy = "user",  orphanRemoval = true)
@@ -97,4 +109,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

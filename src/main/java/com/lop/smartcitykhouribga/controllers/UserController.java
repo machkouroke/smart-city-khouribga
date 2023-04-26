@@ -5,6 +5,7 @@ import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -25,25 +26,21 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> saveUser(@ModelAttribute User user,
+    public ResponseEntity<String> saveUser(@ModelAttribute User user,
                                            @RequestParam("cv")MultipartFile cv,
                                            @RequestParam("photo") MultipartFile photo) throws IOException {
         userService.register(user, cv, photo);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>("registered", HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id){
-        return userService.findById(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id){
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/offers/{type}")
-    public ResponseEntity<Set<JobOffer>> getRelatedOffers(User details,
+    public ResponseEntity<Set<JobOffer>> getRelatedOffers(@AuthenticationPrincipal User user,
                                           @PathVariable String type){
-        User user= details;
         return ResponseEntity.ok().body(userService.findOffersRelatedToUser(user.getId(), type));
     }
-
-
-
 }

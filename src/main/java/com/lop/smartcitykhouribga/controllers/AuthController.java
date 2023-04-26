@@ -2,6 +2,7 @@ package com.lop.smartcitykhouribga.controllers;
 
 import com.lop.smartcitykhouribga.models.Entities.DTO.AuthRequest;
 import com.lop.smartcitykhouribga.models.Entities.DTO.AuthResponse;
+import com.lop.smartcitykhouribga.models.Entities.DTO.UserDTO;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import com.lop.smartcitykhouribga.security.JwtTokenUtil;
@@ -45,8 +46,8 @@ public class AuthController {
 
     @GetMapping("/status")
     public ResponseEntity<Map<String, Object>> status(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(Map.of("success", true, "data", userService.findById(user.getId())
-        ));
+        UserDTO userDTO= userService.convertToDTO(userService.findById(user.getId()));
+        return ResponseEntity.ok(Map.of("success", true, "data", userDTO));
     }
 
 
