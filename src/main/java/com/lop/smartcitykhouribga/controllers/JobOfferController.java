@@ -45,10 +45,10 @@ public class JobOfferController {
     }
 
     @PostMapping("/add")
-    public void addOffer(User details,
+    public void addOffer(@AuthenticationPrincipal User details,
                          @ModelAttribute OfferDTO dto) {
 
-        User user = details;
+        User user = userService.findById(details.getId());
         dto.setPostedAt(new Date());
 
         JobOffer offer = offerService.save(offerService.convertToEntity(dto));
@@ -91,13 +91,13 @@ public class JobOfferController {
     }
 
     @GetMapping("")
-    public List<JobOffer> getAllOffers() {
-        return offerService.findAll();
+    public ResponseEntity<List<JobOffer>> getAllOffers() {
+        return new ResponseEntity<>(offerService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public JobOffer getOffer(@PathVariable Long id) {
-        return offerService.findById(id);
+    public ResponseEntity<OfferDTO> getOffer(@PathVariable Long id) {
+        return new ResponseEntity<>(offerService.convertToDTO(offerService.findById(id)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}/users/{type}")
@@ -106,14 +106,14 @@ public class JobOfferController {
     }
 
     @GetMapping("/search/{word}")
-    public List<JobOffer> search(@PathVariable String word) {
-        return offerService.searchOffers(word);
+    public ResponseEntity<List<JobOffer>> search(@PathVariable String word) {
+        return new ResponseEntity<>(offerService.searchOffers(word), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete")
-    public ResponseEntity<Long> deleteOffers(@RequestParam("id") Long id) {
+    public ResponseEntity<String> deleteOffers(@RequestParam("id") Long id) {
         System.out.println("id" + id);
         offerService.deleteById(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity<>("Offer deleted", HttpStatus.OK);
     }
 }
