@@ -11,6 +11,8 @@ import com.lop.smartcitykhouribga.utilities.FileUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -100,9 +102,11 @@ public class UserService {
     }
 
 
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteRelation(UserOfferRelation uor){
-        System.out.println("Appel de la fonction de suppression");
         relationRepository.delete(uor);
+
     }
     public void deleteRelationById(UserOfferRelationKeys key){
         System.out.println("Appel de la fonction de suppression par id");

@@ -11,7 +11,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-@ToString
+
 @Entity
 @Table(name = "user_offer_relations")
 public class UserOfferRelation {
@@ -24,24 +24,35 @@ public class UserOfferRelation {
     @MapsId("userId")
     @NonNull
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     User user;
 
     @ManyToOne
     @MapsId("offerId")
     @NonNull
     @JoinColumn(name = "offer_id")
+    @ToString.Exclude
     JobOffer offer;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
         UserOfferRelation that = (UserOfferRelation) o;
-        return Objects.equals(id, that.id) && user.equals(that.user) && offer.equals(that.offer);
+        return Objects.equals(id, that.id) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, offer);
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "UserOfferRelation{" +
+                ", user=" + user +
+                ", offer=" + offer +
+                ", type=" + id.getType() +
+                '}';
     }
 }

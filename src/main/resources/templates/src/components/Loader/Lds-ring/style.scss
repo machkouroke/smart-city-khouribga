@@ -40,9 +40,9 @@
     }
 
     &.primary div {
-        border: 8px solid map-get($theme-colors, "primary");
+        border: 8px solid $primary;
 
-        border-color: map-get($theme-colors, "primary") transparent transparent transparent;
+        border-color: $primary transparent transparent transparent;
 
     }
 

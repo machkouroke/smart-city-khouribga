@@ -9,7 +9,7 @@ function login(mail, password) {
         }
     }
     const body = {
-        mail: mail,
+        email: mail,
         password: password
     }
     const url = `${BASE_URL}/auth/login`
