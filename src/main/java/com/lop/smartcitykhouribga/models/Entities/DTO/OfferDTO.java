@@ -31,4 +31,8 @@ public class OfferDTO {
 
     private String picture;
 
+    private String location;
+
+    private Long likesNumber;
+
 }
