@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/offers")
@@ -93,7 +94,14 @@ public class JobOfferController {
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAllOffers() {
-        return ResponseEntity.ok(Map.of("success", true, "data", offerService.findAll()));
+        List<OfferDTO> data = offerService
+                .findAll()
+                .stream()
+                .map(offer
+                        -> offerService.convertToDTO(offer))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(Map.of("success", true, "data", data));
     }
 
     @GetMapping("/{id}")
@@ -109,8 +117,9 @@ public class JobOfferController {
     }
 
     @GetMapping("/search/{word}")
-    public ResponseEntity<List<JobOffer>> search(@PathVariable String word) {
-        return new ResponseEntity<>(offerService.searchOffers(word), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> search(@PathVariable String word) {
+        return ResponseEntity.ok(Map.of("sucess", true,
+                "data", offerService.searchOffers(word)));
     }
 
     @DeleteMapping(value = "/delete")
