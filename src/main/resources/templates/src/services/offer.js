@@ -14,13 +14,27 @@ export const offerApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getUserDetails: builder.query({
+        getAllOffers: builder.query({
             query: () => ({
-                url: '/get_status',
+                url: '',
                 method: 'GET',
             }),
         }),
+
+        toggleReaction: builder.mutation({
+            query: ({job_id, relation_type}) => ({
+                url: `/reaction`,
+                method: 'POST',
+                body: {
+                    job_id,
+                    relation_type
+                }
+            })
+        })
     })
 })
 
-export const {useGetUserDetailsQuery} = offerApi
+export const {
+    useGetAllOffersQuery,
+    useToggleReactionMutation,
+} = offerApi

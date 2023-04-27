@@ -1,5 +1,5 @@
 const ROLES = {
-    Applicant: 'applicant',
-    Recruiter: 'recruiter',
+    Applicant: 'APPLICANT',
+    Recruiter: 'RECRUITER',
 }
 export default ROLES;
