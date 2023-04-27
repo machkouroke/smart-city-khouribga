@@ -57,10 +57,11 @@ export function NavBar() {
                                     <div className="col-lg-4 col-12">
                                         <ul className="navbar-nav">
                                             <li>
-                                                <a onClick={logoutUser}>Se déconnecter<i
-                                                    className="fas fa-sign-out-alt"
+                                                <button onClick={logoutUser} className={"btn btn-danger"}>
+                                                    Se déconnecter<i
+                                                    className="ml-2 fas fa-sign-out-alt "
                                                 ></i
-                                                ></a>
+                                                ></button>
                                             </li>
                                         </ul>
                                     </div>
