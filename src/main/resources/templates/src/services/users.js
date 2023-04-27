@@ -5,7 +5,7 @@ import {BASE_URL} from "../config";
 export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}/Users`,
+        baseUrl: `${BASE_URL}/users`,
         prepareHeaders: (headers, {getState}) => {
             const token = getState().authentication.userToken
             if (token) {
@@ -23,6 +23,13 @@ export const userApi = createApi({
                 body: data
             }),
         }),
+        getPostulatedOffers: builder.query({
+            query: () => ({
+                url: '/offers/postulated',
+                method: 'GET',
+            }),
+
+        }),
         getAllUsers: builder.query({
             query: () => ({
                 url: '?type=cesamien',
@@ -38,4 +45,5 @@ export const userApi = createApi({
 export const {
     useUpdateUserMutation,
     useGetAllUsersQuery,
+    useGetPostulatedOffersQuery
 } = userApi
