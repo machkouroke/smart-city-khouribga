@@ -26,7 +26,11 @@ public class UserServicesTests {
         User newUser = new User("Oke",
                 "Machkour",
                 "machkouroke@gmail.com",
-                Role.ROLE_APPLICANT, "test");
+                Role.APPLICANT,
+                "test",
+                ".jpg",
+                ".pdf"
+        );
 
         User savedUser = userService.save(newUser);
 

@@ -1,12 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {logout} from "../../../slices/LoginPage/Auth"
 import {useNavigate} from "react-router-dom";
+import ScrollableModal from "../../../components/ScrollableModal/ScrollableModal";
+import SearchComponents from "../../../components/SearchComponents/SearchComponents";
 
 
 export function NavBar() {
     const dispatch = useDispatch();
     const navigator = useNavigate()
+    const [open, setOpen] = useState(false);
+
+    const handleClose = () => {
+        setOpen(false);
+
+    };
+
+
+    const handleOpen = () => {
+
+        setOpen(true);
+
+    };
 
     const logoutUser = () => {
         dispatch(logout());
@@ -15,6 +30,13 @@ export function NavBar() {
 
     return (
         <React.Fragment>
+            <ScrollableModal
+                onClose={handleClose}
+                open={open}
+
+            >
+                <SearchComponents />
+            </ScrollableModal>
             <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container">
                     <div className="container-fluid row">
@@ -48,6 +70,8 @@ export function NavBar() {
                                                 type="search"
                                                 placeholder="Recherche une offre spécifique"
                                                 aria-label="Search"
+                                                onClick={handleOpen}
+
                                             />
                                             <button type="submit">
                                                 <i className="fas fa-search"></i>

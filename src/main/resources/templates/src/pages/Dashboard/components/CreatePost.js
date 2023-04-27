@@ -21,7 +21,10 @@ export function CreatePost() {
             <div className="d-flex hide-show mb-2">
                 <textarea className="text-input" placeholder="Description" rows="1"></textarea>
             </div>
-            <div className="submit-btn hide-show">
+            <div className="d-flex hide-show mb-2">
+                <input className="text-input" type="text" placeholder="Tag veuillez les séparer par des espaces"/>
+            </div>
+            <div className="submit-btn hide-show ">
                 <button className="btn btn-primary btn-sm ">Créer l'offre</button>
             </div>
         </div>

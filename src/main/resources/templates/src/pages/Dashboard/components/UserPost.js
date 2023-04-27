@@ -12,7 +12,7 @@ export function UserPost({offer}) {
                 <div className="d-flex user">
                     <img
                         className="rounded-circle"
-                        // src={offer.picture}
+                        src={offer?.picture}
                         alt="profile picture"
                     />
                     <div>
@@ -28,7 +28,7 @@ export function UserPost({offer}) {
                 <p>
 
                     <i className="fa fa-clock m-3"></i> {offer.postedAt}<br/>
-                    <i className="fa fa-location-arrow m-3"></i> {offer.entreprise.location}<br/>
+                    <i className="fa fa-location-arrow m-3"></i> {offer.location}<br/>
                     <i className="fa fa-briefcase m-3"></i> {offer.domain}<br/>
                     <i className="fa fa-envelope m-3"></i> <a
                     href={`mailto:${offer.contact}`}>{offer.contact}</a><br/>

@@ -1,0 +1,41 @@
+.modalite {
+    // position: 'absolute',
+    // border: '2px solid #000',
+    // backgroundColor: 'gray',
+    // backgr
+    // boxShadow: '2px solid black',
+    box-shadow: 2px solid rgb(79, 77, 77);
+    .closeIcon {
+        position: absolute;
+        top: 0px;
+        z-index: 1;
+        right: 0px;
+        cursor: pointer;
+        background: red;
+        color: white;
+        border-radius: 0 8px 0 8px;
+        padding: 4px 4px;
+        &:hover {
+            background: white;
+            color: red;
+        }
+
+    }
+    display: flex;
+    flex-direction: column;
+    /* Gaussian blur  for just background*/
+
+    // border: 2px solid #000;
+    height: 40%;
+    width: 40%;
+    margin-top: 10%;
+    margin-left: 30%;
+    border-radius: 10px;
+    // margin: 'auto'
+    /* media query */
+    @media (max-width: 768px) {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 20%;
+    }
+}
