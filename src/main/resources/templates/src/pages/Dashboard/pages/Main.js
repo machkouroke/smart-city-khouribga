@@ -6,32 +6,32 @@ import {UserPost} from "../components/UserPost";
 import {RightSideBar} from "../components/RightSideBar";
 import {NavBar} from "../components/NavBar";
 import React from "react";
+import {useGetAllOffersQuery} from "../../../services/offer";
+import {Loader} from "../../../components/Loader/Loader";
+import Roles from "../../../security/Roles";
+import {ErrorBox} from "../../../components/Box/Box";
+import {useGetPostulatedOffersQuery} from "../../../services/users";
 
-const pierre = "https://firebasestorage.googleapis.com/v0/b/cesam-website-374720.appspot.com/o/Pictures%2FUser%2Fe.bertried%40gmail.com.png?alt=media&token=4732a887-bf98-4c3a-b865-20bda05d7add";
 
 export function Main({data, user}) {
-    const offers = [
-        {
-            picture: pierre,
-            title: "Développeur Frontend",
-            postedAt: "5 mins ago",
-            location: "Rabat",
-            type: "Contrat à durée indéterminé",
-            description: " Nous cherchons pour un stage PFE à partir du mois d'Avril, à faire participer un(e) jeune\n" +
-                "                talentueux(se) lauréat(e) spécialisation web développement pour une période de 3mois sur Rabat pour\n" +
-                "                la refonte de: www.empower.ma\n" +
-                "                pour les intéressés habitant à Rabat merci d'adresser vos CV à contact@empower.ma",
-            domain: "Informatique",
-            contact: "contact@empower.ma",
-            tag: [
-                "Développeur Frontend",
-                "Web Dev",
-                "Web Dev",
-                "Web Dev",
-                "Web Dev",
-            ]
+    const useQuery = data === "all" ? useGetAllOffersQuery : useGetPostulatedOffersQuery;
+
+    const {data: offers, isFetching, error} = useQuery();
+    console.log(data)
+
+    const content = function () {
+        if (isFetching)
+            return <Loader/>
+        if (error) {
+            console.log("error", error)
+            return <ErrorBox message={error.error}/>
         }
-    ]
+        console.log(offers)
+        return offers.data.map(
+            (offer) => <UserPost offer={offer}/>
+        )
+    }
+
     return (
         <div className={"dashboard"}>
 
@@ -41,15 +41,8 @@ export function Main({data, user}) {
                 <div className="row">
                     <LeftSidebar activeNav={data === "all" ? "/" : "/applied_offer"} user={user}/>
                     <div className="col-lg-6 col-12 timeline">
-                        {data === 'all' &&  <CreatePost/>}
-                        {/* Boucle sur les posts */}
-                        {
-                            offers.map(
-                                (offer) => <UserPost offer={offer}/>
-                            )
-                        }
-
-
+                        {data === 'all' && user.role === Roles.Recruiter && <CreatePost/>}
+                        {content()}
                     </div>
                     <RightSideBar/>
                 </div>

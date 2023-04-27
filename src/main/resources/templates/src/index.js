@@ -9,6 +9,7 @@ import reducers from './slices/index';
 import LogRocket from 'logrocket';
 import {authApi} from "./services/authService";
 import {offerApi} from "./services/offer";
+import {userApi} from "./services/users";
 
 LogRocket.init('iectio/smart-city');
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(offerApi.middleware)
+            .concat(userApi.middleware)
 })
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
