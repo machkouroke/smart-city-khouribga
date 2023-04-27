@@ -3,6 +3,7 @@ package com.lop.smartcitykhouribga.controllers;
 import com.lop.smartcitykhouribga.models.Entities.JobOffer;
 import com.lop.smartcitykhouribga.models.Entities.User;
 import com.lop.smartcitykhouribga.models.Repositories.UserRepository;
+import com.lop.smartcitykhouribga.models.Services.JobOfferService;
 import com.lop.smartcitykhouribga.models.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    JobOfferService jobOfferService;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> saveUser(@ModelAttribute User user,
@@ -43,6 +48,8 @@ public class UserController {
     public ResponseEntity<Map<String, Object>> getRelatedOffers(@AuthenticationPrincipal User user,
                                                                   @PathVariable String type){
         return ResponseEntity.ok(Map.of("success", true,
-                "data", userService.findOffersRelatedToUser(user.getId(), type)));
+                "data", jobOfferService.convertToDTOList(userService.findOffersRelatedToUser(user.getId(), type)
+                        .stream()
+                        .collect(Collectors.toList()))));
     }
 }
