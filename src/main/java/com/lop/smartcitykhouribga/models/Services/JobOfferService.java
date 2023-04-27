@@ -92,12 +92,26 @@ public class JobOfferService {
     public OfferDTO convertToDTO(JobOffer offer){
         OfferDTO offerDTO= modelMapper.map(offer, OfferDTO.class);
 
+
         User user= findUsersRelatedToOffer(offer.getId(), "posted").stream().findFirst().get();
         String picPath= "User/Pictures/"+ user.getMail()+"Picture."+ user.getPicExtension();
         offerDTO.setPicture(firebaseService.getFileUrl(picPath));
 
         offerDTO.setEnterpriseName(offer.getEntreprise().getName());
 
+        offerDTO.setLocation(offer.getEntreprise().getLocation());
+
+        offerDTO.setLikesNumber(findUsersRelatedToOffer(offer.getId(), "liked").stream().count());
+
+
         return offerDTO;
+    }
+
+    public List<OfferDTO> convertToDTOList(List<JobOffer> set){
+        return set
+                .stream()
+                .map(offer
+                        -> convertToDTO(offer))
+                .collect(Collectors.toList());
     }
 }

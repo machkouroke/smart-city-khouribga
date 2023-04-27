@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -26,11 +27,11 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<String> saveUser(@ModelAttribute User user,
+    public ResponseEntity<Map<String, String>> saveUser(@ModelAttribute User user,
                                            @RequestParam("cv")MultipartFile cv,
                                            @RequestParam("photo") MultipartFile photo) throws IOException {
         userService.register(user, cv, photo);
-        return new ResponseEntity<>("registered", HttpStatus.OK);
+        return ResponseEntity.ok(Map.of("opertaion", "registered"));
     }
 
     @GetMapping("/{id}")
@@ -39,8 +40,9 @@ public class UserController {
     }
 
     @GetMapping("/offers/{type}")
-    public ResponseEntity<Set<JobOffer>> getRelatedOffers(@AuthenticationPrincipal User user,
-                                          @PathVariable String type){
-        return ResponseEntity.ok().body(userService.findOffersRelatedToUser(user.getId(), type));
+    public ResponseEntity<Map<String, Object>> getRelatedOffers(@AuthenticationPrincipal User user,
+                                                                  @PathVariable String type){
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", userService.findOffersRelatedToUser(user.getId(), type)));
     }
 }

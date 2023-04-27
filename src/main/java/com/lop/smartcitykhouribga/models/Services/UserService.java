@@ -68,9 +68,13 @@ public class UserService {
         save(user);
     }
 
-    public UserOfferRelation saveRelation(UserOfferRelation uor) {
+    public void updateUser(User user){
+        userRepository.save(user);
+    }
 
-        return this.relationRepository.save(uor);
+    public void saveRelation(UserOfferRelation uor) {
+
+        this.relationRepository.save(uor);
     }
 
     public void delete(Long id) {
