@@ -94,14 +94,9 @@ public class JobOfferController {
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAllOffers() {
-        List<OfferDTO> data = offerService
-                .findAll()
-                .stream()
-                .map(offer
-                        -> offerService.convertToDTO(offer))
-                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(Map.of("success", true, "data", data));
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.convertToDTOList(offerService.findAll())));
     }
 
     @GetMapping("/{id}")
@@ -116,10 +111,10 @@ public class JobOfferController {
                 "data", offerService.findUsersRelatedToOffer(id, type)));
     }
 
-    @GetMapping("/search/{word}")
-    public ResponseEntity<Map<String, Object>> search(@PathVariable String word) {
-        return ResponseEntity.ok(Map.of("sucess", true,
-                "data", offerService.searchOffers(word)));
+    @GetMapping("/search")
+    public ResponseEntity<Map<String, Object>> search(@RequestParam("word") String word) {
+        return ResponseEntity.ok(Map.of("success", true,
+                "data", offerService.convertToDTOList(offerService.searchOffers(word))));
     }
 
     @DeleteMapping(value = "/delete")

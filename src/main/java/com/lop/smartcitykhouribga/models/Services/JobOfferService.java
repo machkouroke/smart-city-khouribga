@@ -106,4 +106,12 @@ public class JobOfferService {
 
         return offerDTO;
     }
+
+    public List<OfferDTO> convertToDTOList(List<JobOffer> set){
+        return set
+                .stream()
+                .map(offer
+                        -> convertToDTO(offer))
+                .collect(Collectors.toList());
+    }
 }
